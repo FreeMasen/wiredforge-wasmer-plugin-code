@@ -1,0 +1,8 @@
+[package]
+name = "example-runner"
+version = "0.1.0"
+authors = ["rfm <r@robertmasen.pizza>"]
+edition = "2018"
+
+[dependencies]
+wasmer-runtime = "0.3.0"

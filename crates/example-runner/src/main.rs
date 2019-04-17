@@ -2,7 +2,7 @@ use wasmer_runtime::{
     imports,
     instantiate,
 };
-// For no we are going to use this to read in our wasm bytes
+// For now we are going to use this to read in our wasm bytes
 static WASM: &[u8] = include_bytes!("../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm");
 
 fn main() {

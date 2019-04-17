@@ -1,0 +1,15 @@
+[package]
+name = "wasmer-plugin-example"
+version = "0.1.0"
+authors = ["rfm <r@robertmasen.pizza>"]
+edition = "2018"
+
+[dependencies]
+
+
+[workspace]
+members = [
+    "./crates/example-macro",
+    "./crates/example-plugin",
+    "./crates/example-runner",
+]

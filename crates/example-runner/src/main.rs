@@ -33,9 +33,6 @@ fn main() {
     }
     // Bind our helper function
     let length = instance.func::<(i32, u32), u32>("_length").expect("Failed to bind _length");
-    let wasm_len = match length.call(1 as i32, len as u32) {
-        Ok(l) => l,
-        Err(e) => panic!("{}\n\n{:?}", e, e),
-    }; //.expect("Failed to execute _length");
+    let wasm_len = match length.call(1 as i32, len as u32).expect("Failed to execute _length");
     println!("original: {}, wasm: {}", len, wasm_len); // original: 34, wasm: 34
 }

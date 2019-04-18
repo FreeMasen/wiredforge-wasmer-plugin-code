@@ -1,3 +1,4 @@
+# ./crates/example-macro/Cargo.toml
 [package]
 name = "example-macro"
 version = "0.1.0"

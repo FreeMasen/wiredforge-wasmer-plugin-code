@@ -1,3 +1,4 @@
+# ./crates/example-plugin/Cargo.toml
 [package]
 name = "example-plugin"
 version = "0.1.0"

@@ -1,3 +1,4 @@
+# ./Cargo.toml
 [package]
 name = "wasmer-plugin-example"
 version = "0.1.0"

@@ -1,3 +1,4 @@
+// ./crates/example-runner/src/main.rs
 use wasmer_runtime::{
     imports,
     instantiate,

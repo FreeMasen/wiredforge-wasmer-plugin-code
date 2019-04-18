@@ -1,3 +1,4 @@
+// ./crates/example-macro/src/lib.rs
 #[cfg(test)]
 mod tests {
     #[test]

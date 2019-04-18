@@ -2,19 +2,13 @@
 use wasmer_runtime::{
     imports,
     instantiate,
-    func,
 };
 
 // For now we are going to use this to read in our wasm bytes
 static WASM: &[u8] = include_bytes!("../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm");
 
 fn main() {
-    let i = imports! {
-        "env" => {
-            "hook" => func!(hook),
-        },
-    };
-    let instance = instantiate(&WASM, &i).expect("failed to instantiate wasm module");
+    let instance = instantiate(&WASM, &imports!{}).expect("failed to instantiate wasm module");
     // The changes start here
     // First we get the module's context
     let context = instance.context();
@@ -44,9 +38,4 @@ fn main() {
         Err(e) => panic!("{}\n\n{:?}", e, e),
     }; //.expect("Failed to execute _length");
     println!("original: {}, wasm: {}", len, wasm_len); // original: 34, wasm: 34
-}
-
-fn hook(ctx: &mut wasmer_runtime::Ctx, ptr: u32, len: u32) {
-    let bytes: Vec<u8> = ctx.memory(0).view()[ptr as usize..ptr as usize + len as usize].iter().map(|c| c.get()).collect();
-    panic!("{}", String::from_utf8_lossy(&bytes));
 }

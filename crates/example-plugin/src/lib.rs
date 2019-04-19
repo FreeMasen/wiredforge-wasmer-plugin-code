@@ -1,5 +1,6 @@
 // ./crates/example-plugin/src/lib.rs
 use bincode::{deserialize, serialize};
+use example_macro::*;
 /// This is the actual code we would 
 /// write if this was a pure rust
 /// interaction

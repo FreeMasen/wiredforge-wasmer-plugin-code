@@ -17,7 +17,14 @@ pub fn _double(ptr: i32, len: u32) -> i32 {
         let slice = ::std::slice::from_raw_parts(ptr as _, len as _);
         String::from_utf8_lossy(slice)
     };
-    // pass the value to `double` and 
-    // return the result as a pointer
-    double(&value).as_ptr() as i32
+    // Double it
+    let ret = double(&value);
+    // Capture the length
+    let len = ret.len() as u32;
+    // write the length to byte 1 in memory
+    unsafe {
+        ::std::ptr::write(1 as _, len);
+    }
+    // return the start index
+    ret.as_ptr() as _
 }

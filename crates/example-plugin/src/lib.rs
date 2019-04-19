@@ -1,6 +1,5 @@
 // ./crates/example-plugin/src/lib.rs
-use bincode::{deserialize, serialize};
-use example_macro::*;
+use wasmer_plugin_example::*;
 /// This is the actual code we would 
 /// write if this was a pure rust
 /// interaction

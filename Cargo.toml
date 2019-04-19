@@ -6,7 +6,9 @@ authors = ["rfm <r@robertmasen.pizza>"]
 edition = "2018"
 
 [dependencies]
+serde = "1"
 bincode = "1"
+example-macro = { path = "./crates/example-macro" }
 
 [workspace]
 members = [

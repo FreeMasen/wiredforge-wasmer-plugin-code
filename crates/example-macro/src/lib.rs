@@ -38,9 +38,9 @@ fn handle_func(func: ItemFn) -> TokenStream {
             let value = unsafe {
                 ::std::slice::from_raw_parts(ptr as _, len as _)
             };
-            let arg = deserialize(value).expect("Failed to deserialize argument");
+            let arg = convert_data(value);
             let ret = #ident(arg);
-            let bytes = serialize(&ret).expect("Failed to serialize return value");
+            let bytes = revert_data(&ret);
             let len = bytes.len() as u32;
             unsafe {
                 ::std::ptr::write(1 as _, len);

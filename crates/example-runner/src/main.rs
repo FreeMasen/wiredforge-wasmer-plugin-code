@@ -32,9 +32,9 @@ fn main() {
         cell.set(*byte)
     }
     // Bind our helper function
-    let double = instance.func::<(i32, u32), i32>("_double").expect("Failed to bind _length");
+    let double = instance.func::<(i32, u32), i32>("_double").expect("Failed to bind _double");
     // Call the helper function an store the start of the returned string
-    let start = double.call(1 as i32, len as u32).expect("Failed to execute _length") as usize;
+    let start = double.call(1 as i32, len as u32).expect("Failed to execute _double") as usize;
     // Calculate the end as the start + twice the length
     let end = start + (len * 2);
     // Capture the string as bytes 

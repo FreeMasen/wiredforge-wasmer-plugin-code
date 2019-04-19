@@ -7,3 +7,4 @@ edition = "2018"
 
 [dependencies]
 wasmer-runtime = "0.3.0"
+bincode = "1"

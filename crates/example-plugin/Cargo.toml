@@ -6,7 +6,7 @@ authors = ["rfm <r@robertmasen.pizza>"]
 edition = "2018"
 
 [dependencies]
-
+bincode = "1"
 
 [lib]
 crate-type = ["cdylib"]

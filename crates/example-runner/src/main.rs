@@ -4,6 +4,16 @@ use wasmer_runtime::{
     instantiate,
 };
 
+use std::time::{
+    UNIX_EPOCH,
+    SystemTime,
+};
+
+use bincode::{
+    deserialize,
+    serialize,
+};
+
 // For now we are going to use this to read in our wasm bytes
 static WASM: &[u8] = include_bytes!("../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm");
 
@@ -24,8 +34,11 @@ fn main() {
     }
     // This is the string we are going to pass into wasm
     let s = "supercalifragilisticexpialidocious".to_string();
-    // This is the string as bytes
-    let bytes = s.as_bytes();
+    let now = SystemTime::now();
+    let diff = now.duration_since(UNIX_EPOCH).expect("Failed to calculate timestamp");
+    let u = ((diff.as_millis() % 10) + 1) as u8;
+    let pair = (u , s);
+    let bytes = serialize(&pair).expect("Failed to serialize tuple");
     // Our length of bytes
     let len = bytes.len();
     // loop over the wasm memory view's bytes
@@ -36,9 +49,9 @@ fn main() {
         cell.set(*byte)
     }
     // Bind our helper function
-    let double = instance.func::<(i32, u32), i32>("_double").expect("Failed to bind _length");
+    let double = instance.func::<(i32, u32), i32>("_multiply").expect("Failed to bind _multiply");
     // Call the helper function an store the start of the returned string
-    let start = double.call(5 as i32, len as u32).expect("Failed to execute _length") as usize;
+    let start = double.call(5 as i32, len as u32).expect("Failed to execute _multiply") as usize;
     // Get an updated view of memory
     let new_view = memory.view::<u8>();
     // Setup the 4 bytes that will be converted
@@ -56,12 +69,12 @@ fn main() {
     let end = start + new_len;
     // Capture the string as bytes 
     // from the new view of the wasm memory
-    let string_buffer: Vec<u8> = new_view[start..end]
+    let updated_bytes: Vec<u8> = new_view[start..end]
                                     .iter()
                                     .map(|c|c.get())
                                     .collect();
     // Convert the bytes to a string
-    let wasm_string = String::from_utf8(string_buffer)
-                            .expect("Failed to convert wasm memory to string");
-    println!("doubled: {}", wasm_string);
+    let updated: (u8, String) = deserialize(&updated_bytes)
+                            .expect("Failed to convert wasm memory to tuple");
+    println!("multiply {}: ({}, {:?})", pair.0, updated.0, updated.1);
 }

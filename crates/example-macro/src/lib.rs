@@ -32,7 +32,7 @@ fn handle_func(func: syn::ItemFn) -> TokenStream {
         #func
 
         pub fn #shadows_ident() {
-            #ident();
+            #ident((2, "attributed"));
         }
     };
     ret.into()

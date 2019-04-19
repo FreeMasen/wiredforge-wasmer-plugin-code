@@ -36,9 +36,9 @@ fn main() {
         cell.set(*byte)
     }
     // Bind our helper function
-    let double = instance.func::<(i32, u32), i32>("_double").expect("Failed to bind _length");
+    let double = instance.func::<(i32, u32), i32>("_double").expect("Failed to bind _double");
     // Call the helper function an store the start of the returned string
-    let start = double.call(5 as i32, len as u32).expect("Failed to execute _length") as usize;
+    let start = double.call(5 as i32, len as u32).expect("Failed to execute _double") as usize;
     // Get an updated view of memory
     let new_view = memory.view::<u8>();
     // Setup the 4 bytes that will be converted

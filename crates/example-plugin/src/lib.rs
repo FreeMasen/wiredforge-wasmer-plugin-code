@@ -5,10 +5,10 @@ use mdbook::{
         Book,
         BookItem,
     },
-    preprocess::PreprocessorContext,
 };
-#[plugin_helper]
-pub fn preprocess((_ctx, mut book): (PreprocessorContext, Book)) -> Book {
+
+#[cfg_attr(target_arch = "wasm32", plugin_helper)]
+pub fn preprocess(mut book: Book) -> Book {
     // Iterate over the book's sections assigning
     // the updated items to the book we were passed
     book.sections = book.sections.into_iter().map(|s| {
@@ -27,4 +27,38 @@ pub fn preprocess((_ctx, mut book): (PreprocessorContext, Book)) -> Book {
     }).collect();
     // Return the updated book
     book
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use mdbook::book::BookBuilder;
+    #[test]
+    fn check() {
+        let b = BookBuilder::new("../../example-book").build().unwrap();
+        let updated = preprocess(b.book);
+        for section in updated.sections {
+            match section { 
+                mdbook::book::BookItem::Chapter(ch) => {
+                    assert!(ch.content.find("WASM").is_none());
+                },
+                _ => (),
+            }
+        }
+    }
+    #[test]
+    fn ser() {
+        let b = BookBuilder::new("../../example-book").build().unwrap();
+        let de = revert_data(b.book);
+        let s = convert_data(de.as_slice());
+        let updated = preprocess(s);
+        for section in updated.sections {
+            match section { 
+                mdbook::book::BookItem::Chapter(ch) => {
+                    assert!(ch.content.find("WASM").is_none());
+                },
+                _ => (),
+            }
+        }
+    }
 }

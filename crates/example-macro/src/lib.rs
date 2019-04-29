@@ -35,7 +35,7 @@ fn handle_func(func: ItemFn) -> TokenStream {
 
         #[no_mangle]
         pub fn #shadows_ident(ptr: i32, len: u32) -> i32 {
-            let value = unsafe {
+            let value: &[u8] = unsafe {
                 ::std::slice::from_raw_parts(ptr as _, len as _)
             };
             let arg = convert_data(value);

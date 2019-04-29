@@ -1,0 +1,8 @@
+# ./example-book/book.toml
+[book]
+authors = ["rfm"]
+multilingual = false
+src = "src"
+title = "Example Book"
+
+[preprocessor.example-runner]

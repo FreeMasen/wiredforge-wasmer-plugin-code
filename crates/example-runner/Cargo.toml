@@ -1,6 +1,6 @@
 # ./crates/example-runner/Cargo.toml
 [package]
-name = "example-runner"
+name = "mdbook-example-runner"
 version = "0.1.0"
 authors = ["rfm <r@robertmasen.pizza>"]
 edition = "2018"

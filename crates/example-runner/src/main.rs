@@ -69,34 +69,27 @@ fn main() {
 /// Update the book's contents so that all WASMs are
 /// replaced with Wasm
 fn preprocess(book: Book) -> Result<Book, String> {
-    eprintln!("creating instance");
     let instance = instantiate(&WASM, &imports!{})
         .expect("failed to instantiate wasm module");
     // The changes start here
     // First we get the module's context
-    eprintln!("capturing context");
     let context = instance.context();
     // Then we get memory 0 from that context
     // web assembly only supports one memory right
     // now so this will always be 0.
-    eprintln!("capturing memory");
     let memory = context.memory(0);
     // Now we can get a view of that memory
-    eprintln!("getting first view");
     let view = memory.view::<u8>();
     // Zero our the first 4 bytes of memory
-    eprintln!("zeroing cell 1-4");
     for cell in view[1..5].iter() {
         cell.set(0);
     }
-    eprintln!("serializing pair");
     let bytes = serialize(&book)
         .expect("Failed to serialize tuple");
     // Our length of bytes
     let len = bytes.len();
     // loop over the wasm memory view's bytes
     // and also the string bytes
-    eprintln!("injecting bytes");
     for (cell, byte) in view[5..len + 5]
                 .iter()
                 .zip(bytes.iter()) {
@@ -104,11 +97,9 @@ fn preprocess(book: Book) -> Result<Book, String> {
         // be the value of the string byte
         cell.set(*byte)
     }
-    eprintln!("binding preprocessor");
     // Bind our helper function
     let wasm_preprocess = instance.func::<(i32, u32), i32>("_preprocess")
         .expect("Failed to bind _preprocess");
-    eprintln!("running preprocessor");
     // Call the helper function an store the start of the returned string
     let start = wasm_preprocess.call(5 as i32, len as u32)
         .expect("Failed to execute _preprocess") as usize;

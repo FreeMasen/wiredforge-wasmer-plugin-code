@@ -10,7 +10,9 @@ use std::{
     io::{
         stdin,
         stdout,
-    }
+        Read,
+    },
+    fs::File,
 };
 use mdbook::{
     book::Book,
@@ -24,9 +26,6 @@ use wasmer_runtime::{
     instantiate,
     imports,
 };
-
-// For now we are going to use this to read in our wasm bytes
-static WASM: &[u8] = include_bytes!("../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm");
 
 static USAGE: &str = "
 Usage:
@@ -47,18 +46,20 @@ fn main() {
                     .unwrap_or_else(|e| e.exit());
     // If the arg supports was include
     // we need to handle that
-    if let Some(_renderer_name) = opts.arg_supports {
+    if let Some(renderer_name) = opts.arg_supports {
+        eprintln!("mdbook-example-runner supports {}", renderer_name);
         // This will always resolve
         // to `true` for mdbook
         exit(0);
     }
+    eprintln!("mdbook-example-runner");
     // Parse and deserialize the context and book
     // from stdin
-    let (_ctx, book): (PreprocessorContext, Book) = 
+    let (ctx, book): (PreprocessorContext, Book) = 
         from_reader(stdin())
         .expect("Failed to deserialize context and book");
     // Update the book's contents
-    let updated = preprocess(book)
+    let updated = run_all_preprocessors(ctx, book)
         .expect("Failed to preprocess book");
     // serialize and write the updated book
     // to stdout
@@ -66,10 +67,30 @@ fn main() {
         .expect("Failed to serialize/write book");
 }
 
+fn run_all_preprocessors(ctx: PreprocessorContext, mut book: Book) -> Result<Book, String> {
+    let dir = ctx.root.join("preprocessors");
+    eprintln!("checking {:?} for wasm preprocessors", &dir);
+    for entry in dir.read_dir().map_err(|e|format!("Error reading preprocessors directory {}", e))? {
+        let entry = entry.map_err(|e| format!("Error reading entry {}", e))?;
+        let path = entry.path();
+        eprintln!("{:?}", path);
+        if let Some(ext) = path.extension() {
+            if ext == "wasm" {
+                eprintln!("Found wasm preprocessor {:?}", path.file_name().expect("extention with no file name"));
+                let mut buf = Vec::new();
+                let mut f = File::open(&path).map_err(|e| format!("Error opening file {:?}, {}", path, e))?;
+                f.read_to_end(&mut buf).map_err(|e| format!("Error reading file {:?}, {}", path, e))?;
+                book = preprocess(buf.as_slice(), book)?;
+            }
+        }
+    }
+    Ok(book)
+}
+
 /// Update the book's contents so that all WASMs are
 /// replaced with Wasm
-fn preprocess(book: Book) -> Result<Book, String> {
-    let instance = instantiate(&WASM, &imports!{})
+fn preprocess(bytes: &[u8], book: Book) -> Result<Book, String> {
+    let instance = instantiate(bytes, &imports!{})
         .expect("failed to instantiate wasm module");
     // The changes start here
     // First we get the module's context

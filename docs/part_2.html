@@ -1,0 +1,559 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 2 - Example Book</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="part_1.html"><strong aria-hidden="true">1.</strong> Part 1</a></li><li><a href="part_2.html" class="active"><strong aria-hidden="true">2.</strong> Part 2</a></li><li><a href="part_3.html"><strong aria-hidden="true">3.</strong> Part 3</a></li><li><a href="part_4.html"><strong aria-hidden="true">4.</strong> Part 4</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Example Book</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>If you haven't seen it yet, you may want to checkout <a href="/blog/wasmer-plugin-pt-1/index.html">part one</a> where we went over the basics of using wasmer. In this post we are going to cover how we could pass more complicated data from the Wasm module back to the runner.</p>
+<a class="header" href="#yet-another-plugin" id="yet-another-plugin"><h3>Yet Another Plugin</h3></a>
+<p>To start we are going to create another plugin, this one will take a string as an argument and return that string doubled. Here is what that plugin would look like.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+
+/// This is the actual code we would 
+/// write if this was a pure rust
+/// interaction
+pub fn double(s: &amp;str) -&gt; String {
+    s.repeat(2)
+}
+
+/// Since it isn't we need a way to
+/// translate the data from wasm
+/// to rust
+#[no_mangle]
+pub fn _double(ptr: i32, len: u32) -&gt; i32 {
+    // Extract the string from memory.
+    let value = unsafe { 
+        let slice = ::std::slice::from_raw_parts(ptr as _, len as _);
+        String::from_utf8_lossy(slice)
+    };
+    // pass the value to `double` and 
+    // return the result as a pointer
+    double(&amp;value).as_ptr() as i32
+}
+#}</code></pre></pre>
+<p>Most of what is going on here is exactly what we did the last time, the only difference is in that last line it has <code>.as_ptr()</code> added to it and the return value is now <code>i32</code>. <code>as_ptr</code> is a method that will return the byte index in memory of a value, which normally would be a pretty scary thing to deal with but I promise that we are going to survive. So how would we use this new plugin?</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // This is the string we are going to pass into wasm
+    let s = &quot;supercalifragilisticexpialidocious&quot;.to_string();
+    // This is the string as bytes
+    let bytes = s.as_bytes();
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[1..len + 1].iter().zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let double = instance.func::&lt;(i32, u32), i32&gt;(&quot;_double&quot;).expect(&quot;Failed to bind _double&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = double.call(1 as i32, len as u32).expect(&quot;Failed to execute _double&quot;) as usize;
+    // Calculate the end as the start + twice the length
+    let end = start + (len * 2);
+    // Capture the string as bytes 
+    // from a fresh view of the Wasm memory
+    let string_buffer: Vec&lt;u8&gt; = memory
+                                    .view()[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    let wasm_string = String::from_utf8(string_buffer)
+                            .expect(&quot;Failed to convert Wasm memory to string&quot;);
+    println!(&quot;doubled: {}&quot;, wasm_string);
+}
+</code></pre></pre>
+<p>Again, almost all of this is going to be reused from the last example. We need to change the type arguments for <code>func</code> ever so slightly and the name of the function. Next we are going to call the <code>func</code> just like we did the last time, this time the return value is going to represent the index for the start of our new string. Since we will only ever double the string we can calculate the end by adding twice the original length plus the start, with both the start and the end we can capture the bytes as a slice. If you have the bytes as a slice you can try and convert it into a string using the <code>String::from_utf8</code> method. If we were to run this we should see the following.</p>
+<pre><code>cargo run
+doubled: supercalifragilisticexpialidocioussupercalifragilisticexpialidocious
+</code></pre>
+<p>Huzzah! Success... though the situations where you would know the size of any data after a plugin ran is going to be too small to be useful. Now the big question becomes, if web assembly functions can only return 1 value how could we possibly know both the start and the length of any value coming back? One solution would be to reserve a section of memory that the Wasm module could put the length in and then get the length when it's done.</p>
+<a class="header" href="#two-values-from-one-function" id="two-values-from-one-function"><h2>Two values from one function</h2></a>
+<p>Let's keep the same basic structure of our last plugin, this time though, we are going to get the length from a reserved part of memory.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub fn double(s: &amp;str) -&gt; String {
+    s.repeat(2)
+}
+
+#[no_mangle]
+pub fn _double(ptr: i32, len: u32) -&gt; i32 {
+    // Extract the string from memory.
+    let value = unsafe { 
+        let slice = ::std::slice::from_raw_parts(ptr as _, len as _);
+        String::from_utf8_lossy(slice)
+    };
+    // Double it
+    let ret = double(&amp;value);
+    // Capture the length
+    let len = ret.len() as u32;
+    // write the length to byte 1 in memory
+    unsafe {
+        ::std::ptr::write(1 as _, len);
+    }
+    // return the start index
+    ret.as_ptr() as _
+}
+#}</code></pre></pre>
+<p>This time in our plugin we have one change, the call to <a href="https://doc.rust-lang.org/std/ptr/fn.write.html"><code>::std::ptr::write</code></a>, which will write to any place in memory you tell it to any value you want. This is a pretty dangerous thing to do, it is important that we have all our ducks in a row or we may corrupt some existing memory. This is going to write the 4 bytes that make up the variable <code>len</code> into memory at index 1, 2, 3, and 4. The key to making that work is that we are going to need to leave those 4 bytes empty when we insert our value from the runner.</p>
+<p>Let's build that.</p>
+<pre><code>cargo -p example-plugin --target wasm32-unknown-unknown
+</code></pre>
+<p>Now we can get started on the runner.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    // This is the string we are going to pass into wasm
+    let s = &quot;supercalifragilisticexpialidocious&quot;.to_string();
+    // This is the string as bytes
+    let bytes = s.as_bytes();
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5].iter().zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let double = instance.func::&lt;(i32, u32), i32&gt;(&quot;_double&quot;).expect(&quot;Failed to bind _double&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = double.call(5 as i32, len as u32).expect(&quot;Failed to execute _double&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view.get(i + 1).map(|c| c.get()).unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let string_buffer: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    let wasm_string = String::from_utf8(string_buffer)
+                            .expect(&quot;Failed to convert Wasm memory to string&quot;);
+    println!(&quot;doubled: {}&quot;, wasm_string);
+}
+</code></pre></pre>
+<p>Ok, a few more things are going on in this one. First we immediately update the memory's bytes 1 through 4 to be set to 0, this is where we are going to put the new length. We continue normally until after we call <code>_double</code>. This time through we are going to pull those first 4 bytes out of the Wasm memory into a 4 byte array and convert that to a u32. We need to cast this u32 to a usize because we are going to be using it in as an index later. We can now update our <code>end</code> to use this new value instead of the old one. From that point on we keep going the same way. If we were to run this we should see the following.</p>
+<pre><code>cargo run
+doubled: supercalifragilisticexpialidocioussupercalifragilisticexpialidocious
+</code></pre>
+<p>Huzzah! Success... and it is far more robust that before. If we executed a Wasm module that exported <code>_double</code> that actually tripled a string or cut the string in half, we would still know the correct length. Now that we can pass arbitrary sets of bytes from rust to Wasm and back again that means we have to tools to pass more complicated data. All we need now is a way to turn any struct into bytes and then back again, for that we can use something like <a href="https://github.com/TyOverby/bincode"><code>bincode</code></a> which is a binary serialization format used by <a href="https://github.com/servo/webrender">WebRender</a> and <a href="https://github.com/servo/ipc-channel">Servo's ipc-channel</a>. It implements the traits defined by the <a href="https://serde.rs/"><code>serde</code></a> crate which greatly opens our options.</p>
+<p>Since there are a bunch of <code>serde</code> trait implementations for a bunch of standard rust types including strings and tuples, let's leverage that to create a slightly more interesting example.</p>
+<a class="header" href="#slightly-more-interesting" id="slightly-more-interesting"><h3>Slightly More Interesting™</h3></a>
+<p>First we want to update the dependencies for both our runner and plugin projects. Update the 2 Cargo.toml files to look like this.</p>
+<pre><code># ./crates/example-runner/Cargo.toml
+[package]
+name = &quot;example-runner&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer-runtime = &quot;0.3.0&quot;
+bincode = &quot;1&quot;
+</code></pre>
+<pre><code># ./crates/example-plugin/Cargo.toml
+[package]
+name = &quot;example-plugin&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+bincode = &quot;1&quot;
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>Now we can use bincode both of these projects. This time around, the goal is going to be to create a plugin that will take a tuple of a u8 and a string and return an updated version of that tuple.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+use bincode::{deserialize, serialize};
+/// This is the actual code we would 
+/// write if this was a pure rust
+/// interaction
+pub fn multiply(pair: (u8, String)) -&gt; (u8, String) {
+    // create a repeated version of the string
+    // based on the u8 provided
+    let s = pair.1.repeat(pair.0 as usize);
+    // Multiply the u8 by the length
+    // of the new string
+    let u = pair.0.wrapping_mul(s.len() as u8);
+    (u, s)
+}
+
+/// Since it isn't we need a way to
+/// translate the data from wasm
+/// to rust
+#[no_mangle]
+pub fn _multiply(ptr: i32, len: u32) -&gt; i32 {
+    // Extract the string from memory.
+    let slice = unsafe { 
+        ::std::slice::from_raw_parts(ptr as _, len as _)
+    };
+    // deserialize the memory slice
+    let pair = deserialize(slice).expect(&quot;Failed to deserialize tuple&quot;);
+    // Get the updated version
+    let updated = multiply(pair);
+    // serialize the updated value
+    let ret = serialize(&amp;updated).expect(&quot;Failed to serialize tuple&quot;);
+    // Capture the length
+    let len = ret.len() as u32;
+    // write the length to byte 1 in memory
+    unsafe {
+        ::std::ptr::write(1 as _, len);
+    }
+    // return the start index
+    ret.as_ptr() as _
+}
+#}</code></pre></pre>
+<p>Just like last time time we take in our <code>ptr</code> and <code>len</code> arguments, we pass those along to <code>::std::slice::from_raw_parts</code> which creates a reference to our bytes. After we get those bytes we can deserialize them into a tuple of a u8 and a string. Now we can pass that tuple along to the <code>multiply</code> function and capture the results as <code>updated</code>. Next we are going to serialize that value into a <code>Vec&lt;u8&gt;</code> and as the variable <code>ret</code>. The rest is going to be exactly like our string example, capture the length, write it to memory index 1 and return the start index of the bytes. Let's build this.</p>
+<pre><code>cargo -p example-plugin --target wasm32-unknown-unknown
+</code></pre>
+<p>Now for our runner.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+
+use std::time::{
+    UNIX_EPOCH,
+    SystemTime,
+};
+
+use bincode::{
+    deserialize,
+    serialize,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    // This is the string we are going to pass into wasm
+    let s = &quot;supercalifragilisticexpialidocious&quot;.to_string();
+    let now = SystemTime::now();
+    let diff = now.duration_since(UNIX_EPOCH).expect(&quot;Failed to calculate timestamp&quot;);
+    let u = ((diff.as_millis() % 10) + 1) as u8;
+    let pair = (u, s);
+    let bytes = serialize(&amp;pair).expect(&quot;Failed to serialize tuple&quot;);
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5].iter().zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let double = instance.func::&lt;(i32, u32), i32&gt;(&quot;_multiply&quot;).expect(&quot;Failed to bind _multiply&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = double.call(5 as i32, len as u32).expect(&quot;Failed to execute _multiply&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view.get(i + 1).map(|c| c.get()).unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let updated_bytes: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    let updated: (u8, String) = deserialize(&amp;updated_bytes)
+                            .expect(&quot;Failed to convert Wasm memory to tuple&quot;);
+    println!(&quot;multiply {}: ({}, {:?})&quot;, pair.0, updated.0, updated.1);
+}
+</code></pre></pre>
+<p>First, we have updated our <code>use</code> statements to include some <code>std::time</code> items and the bincode functions for serializing and deserializing. We are going to use the same string as we did last time and calculate a pseudo random number between 1 and 10 that will serve as the parts of our tuple. Once we have constructed our tuple, we pass that off to <code>bincode::serialize</code> which gets us back to a <code>Vec&lt;u8&gt;</code>. We continue on just like our string example until after we get the new length back from the Wasm module. At this point we are going to build the updated_bytes the same as before and pass those along to <code>bincode::deserialize</code> which should get us back to a tuple.</p>
+<pre><code>cargo run
+multiply 2: (136, &quot;supercalifragilisticexpialidocioussupercalifragilisticexpialidocious&quot;)
+</code></pre>
+<p>Huzzah! Another success! At this point it might be a good idea to address the ergonomics all of this, if we asked another developer to understand all of this, do you think anyone would build a plugin for our system? Probably not. In the next post we are going to cover how to ease that process by leveraging <code>proc_macros</code>.</p>
+<p><a href="/blog/wasmer-plugin-pt-3/index.html">part three</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="part_1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="part_3.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="part_1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="part_3.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

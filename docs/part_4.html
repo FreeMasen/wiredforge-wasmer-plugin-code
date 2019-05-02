@@ -1,0 +1,687 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Part 4 - Example Book</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="part_1.html"><strong aria-hidden="true">1.</strong> Part 1</a></li><li><a href="part_2.html"><strong aria-hidden="true">2.</strong> Part 2</a></li><li><a href="part_3.html"><strong aria-hidden="true">3.</strong> Part 3</a></li><li><a href="part_4.html" class="active"><strong aria-hidden="true">4.</strong> Part 4</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Example Book</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>In the last three posts of this series we covered all of the things we would need to use <a href="http://wasmer.io"><code>Wasmer</code></a> as the base for a plugin system. In <a href="/blog/wasmer-plugin-pt-1/index.html">part one</a> we went over the basics of passing simple data in and out of a web assembly module, in <a href="/blog/wasmer-plugin-pt-2/index.html">part two</a> we dug deeper into how you might do the same with more complicated data. In the <a href="/blog/wasmer-plugin-pt-3/index.html">last part</a> we eased the experience of plugin developers by encapsulating all of our work into a library that exports a procedural macro. In this post we are going to explore what it would take to extend an existing plugin system to allow for Wasm plugins.</p>
+<a class="header" href="#enter-mdbook" id="enter-mdbook"><h2>Enter MDBook</h2></a>
+<p>Before we get started with any code, we should first go over <a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a> a little bit. If you are not familiar, mdbook is an application that enables its users to create books using markdown files and a toml file for configuration. You are probably familiar with the format because <a href="https://doc.rust-lang.org/book/index.html">TRPL</a> is built using it and while HTML is probably the most popular output it has the ability to render into a few other formats. These other formats are provided through a plugin system which has two sides, preprocessors and renderers. Each side is really aptly named, the preprocessors will get the information first then the renderer will get the information last. Both types of plugins communicate with the main mdbook process via stdin and stdout. The basic workflow is that mdbook will read in the book and it's contents from the file system, generate a struct that represents that book and then serializes it to json and pipes it to a child process. If that child process is a preprocessor, it will deserialize, update, re-serialize and then pipe that back, if it is a render it will deserialize and then render that however it likes. At this point, we are going to focus on the preprocessor because Wasm isn't currently a great candidate for dealing with the file system or network and the preprocessor doesn't need any of that.</p>
+<p>In the <a href="https://rust-lang-nursery.github.io/mdBook/for_developers/preprocessors.html">official guide</a> the mdbook team outlined the basic structure as being an struct that implements the trait <code>Preprocessor</code> which requires two methods <code>name</code>, <code>run</code> and allows an optional method <code>supports</code> which by default returns true. The main entry point being the <code>run</code> method, which take a <code>PreprocessorContext</code> and a <code>Book</code> and returns a <code>Result&lt;Book&gt;</code>. While this is a good way to explain what is needed, in actuality a preprocessor would look a little different. First, instead of a struct that implements a trait, it can just be a command line application that can support running with no arguments as well as with the <code>supports</code> argument. If the supports argument is provided, the application should use the exit status code to indicate if it does (0) or does not (1) support a particular renderer. If no argument was provided we would then deserialize the context and book provided from stdin (as a tuple). Once those two values are acquired, you can manipulate the book however you'd like and then serialize the it and send that back out via stdout. Let's quickly look at what a preprocessor might look like if it just updates any &quot;Wasm&quot; strings to &quot;Wasm&quot; (because Wasm isn't an acronym). For this example, we are going to update the runner. First we want to add a few more dependencies, namely mdBook, docopt, serde and serde_derive.</p>
+<pre><code class="language-toml"># ./crates/example-runner/Cargo.toml
+[package]
+name = &quot;mdbook-example-runner&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer-runtime = &quot;0.3.0&quot;
+bincode = &quot;1&quot;
+mdbook = { git = &quot;https://github.com/rust-lang-nursery/mdBook&quot; }
+docopt = &quot;1&quot;
+serde = &quot;1&quot;
+serde_derive = &quot;1&quot;
+serde_json = &quot;1&quot;
+</code></pre>
+<p>Two things to point out here, first is that we are updating the name of this program to have a prefix of <code>mdbook-</code> this is a requirement of any mdbook preprocessor, the other is that we are using mdbook as a git dependency. As of the writing of this post there is an issue with their handlebars dependency that would make the library fail to compile to Wasm. The next version of mdbook will not include this problem but for now, this example will need to work with the git repository instead of crates.io. We are going to use docopt for command line argument parsing but you could just as easily use clap, structopt or DIY it if you'd prefer.</p>
+<p>As a note, this example is going to remove a lot of the wasmer-runtime stuff for readability (you may want to keep some of it around for later if you're typing along).</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use docopt::Docopt;
+use serde::Deserialize;
+use serde_json::{
+    from_reader, 
+    to_writer,
+};
+use std::{
+    process::exit,
+    io::{
+        stdin,
+        stdout,
+    }
+};
+use mdbook::{
+    book::{
+        Book,
+        BookItem,
+    },
+    preprocess::PreprocessorContext,
+};
+
+static USAGE: &amp;str = &quot;
+Usage:
+    mdbook-wasm-preprocessor
+    mdbook-wasm-preprocessor supports &lt;supports&gt;
+&quot;;
+
+#[derive(Deserialize)]
+struct Opts {
+    pub arg_supports: Option&lt;String&gt;,
+}
+
+fn main() {
+    // Parse and deserialize command line
+    // arguments
+    let opts: Opts = Docopt::new(USAGE)
+                    .and_then(|d| d.deserialize())
+                    .unwrap_or_else(|e| e.exit());
+    // If the arg supports was include
+    // we need to handle that
+    if let Some(_renderer_name) = opts.arg_supports {
+        // This will always resolve
+        // to `true` for mdbook
+        exit(0);
+    }
+    // Parse and deserialize the context and book
+    // from stdin
+    let (_ctx, book): (PreprocessorContext, Book) = 
+        from_reader(stdin())
+        .expect(&quot;Failed to deserialize context and book&quot;);
+    // Update the book's contents
+    let updated = preprocess(book)
+        .expect(&quot;Failed to preprocess book&quot;);
+    // serialize and write the updated book
+    // to stdout
+    to_writer(stdout(), &amp;updated)
+        .expect(&quot;Failed to serialize/write book&quot;);
+}
+
+/// Update the book's contents so that all Wasms are
+/// replaced with Wasm
+fn preprocess(mut book: Book) -&gt; Result&lt;Book, String&gt; {
+    // Iterate over the book's sections assigning
+    // the updated items to the book we were passed
+    book.sections = book.sections.into_iter().map(|s| {
+        // each section could be a chapter
+        // or a seperator
+        match s {
+            // if its a chapter, we want to update that
+            BookItem::Chapter(mut ch) =&gt; {
+                // replace all Wasms with Wasms
+                ch.content = ch.content.replace(&quot;Wasm&quot;, &quot;Wasm&quot;);
+                // Wrap the contents back up into a Chapter
+                BookItem::Chapter(ch)
+            },
+            _ =&gt; s,
+        }
+    }).collect();
+    // Return the updated book
+    Ok(book)
+}
+</code></pre></pre>
+<p>If you have never used docopt, it essentially uses command line usage text as a serialization format. To start we are going to define our usage. With that done we can declare the struct that will represent the deserialized command line arguments. Docopt uses a prefix scheme for flags vs sub-commands vs arguments, we want to have a field <code>arg_supports</code> that will be an optional string. Now we can actually get into the execution, first we pass the usage off to docopt and exit early if it fails to parse. Next we want to check if the caller provided the supports argument, if so we are just going to exit early with 0 which just says yes, we support this format. Once we are through that we can use the serde_json function deserialize_from to both read stdin and also serialize it into a tuple with a context first and the book second. Now that we have those two items we are going to pass them along to the function preprocess.</p>
+<p>For this preprocessor, we are going loop over all of the sections in the book and any chapters we find and update the contents of those to replace any &quot;Wasm&quot;s with &quot;Wasm&quot;s returning the updated book. We are going to use the serde_json function <code>serialize_to</code> to serialize the returned book to json and write that to stdout. As you can see, this is both a powerful system but also one that requires plugin developers to know quite a bit about how everything works. After building a <a href="https://github.com/FreeMasen/mdbook-presentation-preprocessor">preprocessor</a> myself and then hearing about wasmer-runtime it seemed like a perfect opportunity to make this whole thing easier.</p>
+<p>If we wanted to test our first example out we would need mdbook installed and an actual book to run it against. To install mdbook, <a href="https://github.com/FreeMasen/wasmer-plugin">you have a few options</a> but for this example we will use <code>cargo install mdbook</code>. With that installed we can create a book with the following.</p>
+<pre><code>mdbook init ./example-book
+
+Do you want a .gitignore to be created? (y/n)
+n
+What title would you like to give the book? 
+Example Book
+</code></pre>
+<p>As an example, the <a href="https://github.com/FreeMasen/wiredforge-wasmer-plugin-code">repo</a> has one defined with the contents of this series, with all the wasms capitalized. Now, we need to tell mdbook to run our preprocessor, we do that in the <code>book.toml</code> file.</p>
+<pre><code class="language-toml"># ./example-book/book.toml
+[book]
+authors = [&quot;rfm&quot;]
+multilingual = false
+src = &quot;src&quot;
+title = &quot;Example Book&quot;
+
+[preprocessor.example-runner]
+</code></pre>
+<p>We are almost there, the last thing we need to do is install our plugin, we do that with the following command.</p>
+<pre><code>cargo install --path ./crates/example-runner
+</code></pre>
+<p>Cargo will compile that for us and put it in our path. We can now run <code>mdbook build ./example-book</code>, which will generate a bunch of files in the <code>./example-book/book</code> directory, any of the html files should have their Wasms updated to Wasms.</p>
+<p>One of the really nice things about there being an existing plugin system is that we don't need to be maintainers to realize our vision. We could define our own scheme for running Wasm plugins that interfaces with mdbook via the old system. Let's say that we want our plugin developers to provide a functions <code>preprocess(mut book: Book) -&gt; Book</code>. Since this takes a single argument and return a single argument, we can use the same scheme to execute it as we have previously. Let's take the Wasm to Wasm part from above and move that into our example plugin, to do that we need to update the dependencies.</p>
+<pre><code class="language-toml"># ./crates/example-plugin/Cargo.toml
+[package]
+name = &quot;example-plugin&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer-plugin-example = { path = &quot;../..&quot; }
+
+[dependencies.mdbook]
+git = &quot;https://github.com/rust-lang-nursery/mdBook&quot;
+default-features = false 
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>Adding a dependency with a toml table like we're doing for mdbook is a nice way to make it clearer what is happening. Again we are going to point to the git repository, we also need to make sure that the default-features are turned off. The mdbook default features are primarily for the binary application, avoiding them is the other key to allowing this to compile to Wasm. With that out of the way we can update our code.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+use wasmer_plugin_example::*;
+use mdbook::{
+    book::{
+        Book,
+        BookItem,
+    },
+    preprocess::PreprocessorContext,
+};
+#[plugin_helper]
+pub fn preprocess(mut book: Book) -&gt; Book {
+    // Iterate over the book's sections assigning
+    // the updated items to the book we were passed
+    book.sections = book.sections.into_iter().map(|s| {
+        // each section could be a chapter
+        // or a seperator
+        match s {
+            // if its a chapter, we want to update that
+            BookItem::Chapter(mut ch) =&gt; {
+                // replace all Wasms with Wasms
+                ch.content = ch.content.replace(&quot;Wasm&quot;, &quot;Wasm&quot;);
+                // Wrap the contents back up into a Chapter
+                BookItem::Chapter(ch)
+            },
+            _ =&gt; s,
+        }
+    }).collect();
+    // Return the updated book
+    book
+}
+#}</code></pre></pre>
+<p>Here we have updated the library to export a function called <code>preprocess</code> annotated with the <code>#[plugin_helper]</code> attribute which means we should be able to use it just like we did before. Now we can update our runner, we are going to be passing what we have deserialized from the command line to the Wasm module.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use docopt::Docopt;
+use serde::Deserialize;
+use serde_json::{
+    from_reader, 
+    to_writer,
+};
+use std::{
+    process::exit,
+    io::{
+        stdin,
+        stdout,
+    }
+};
+use mdbook::{
+    book::Book,
+    preprocess::PreprocessorContext,
+};
+use bincode::{
+    serialize,
+    deserialize,
+};
+use wasmer_runtime::{
+    instantiate,
+    imports,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+static USAGE: &amp;str = &quot;
+Usage:
+    mdbook-wasm-preprocessor
+    mdbook-wasm-preprocessor supports &lt;supports&gt;
+&quot;;
+
+#[derive(Deserialize)]
+struct Opts {
+    pub arg_supports: Option&lt;String&gt;,
+}
+
+fn main() {
+    // Parse and deserialize command line
+    // arguments
+    let opts: Opts = Docopt::new(USAGE)
+                    .and_then(|d| d.deserialize())
+                    .unwrap_or_else(|e| e.exit());
+    // If the arg supports was include
+    // we need to handle that
+    if let Some(_renderer_name) = opts.arg_supports {
+        // This will always resolve
+        // to `true` for mdbook
+        exit(0);
+    }
+    // Parse and deserialize the context and book
+    // from stdin
+    let (_ctx, book): (PreprocessorContext, Book) = 
+        from_reader(stdin())
+        .expect(&quot;Failed to deserialize context and book&quot;);
+    // Update the book's contents
+    let updated = preprocess(book)
+        .expect(&quot;Failed to preprocess book&quot;);
+    // serialize and write the updated book
+    // to stdout
+    to_writer(stdout(), &amp;updated)
+        .expect(&quot;Failed to serialize/write book&quot;);
+}
+
+/// Update the book's contents so that all Wasms are
+/// replaced with Wasm
+fn preprocess(book: Book) -&gt; Result&lt;Book, String&gt; {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{})
+        .expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    let bytes = serialize(&amp;book)
+        .expect(&quot;Failed to serialize tuple&quot;);
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5]
+                .iter()
+                .zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let wasm_preprocess = instance.func::&lt;(i32, u32), i32&gt;(&quot;_preprocess&quot;)
+        .expect(&quot;Failed to bind _preprocess&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = wasm_preprocess.call(5 as i32, len as u32)
+        .expect(&quot;Failed to execute _preprocess&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view
+            .get(i + 1)
+            .map(|c| c.get())
+            .unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let updated_bytes: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    deserialize(&amp;updated_bytes)
+        .map_err(|e| format!(&quot;Error deserializing after Wasm update\n{}&quot;, e))
+}
+</code></pre></pre>
+<p>A lot of what we see in <code>preprocess</code> should look familiar to our previous runner examples, the only real change being that <code>pair</code> will now just be <code>book</code> and the name of the function we are calling has changed. At this point, to test if this is working we would need to rebuild the plugin and then re-install the runner before we can build our book.</p>
+<pre><code>cargo build -p example-plugin
+cargo install --path ./crates/example-runner --force
+mdbook build example-book
+</code></pre>
+<p>When we run that the output in example-book/book should now have to content we expect. One last thing to cover is that we are still using the <code>include_bytes</code> macro to get our Wasm. If this was a real plugin system we would need a method for getting that in a more dynamic way. Let's assume that we want our users to put any pre-compiled Wasm preprocessors into a new sub-directory of the book's root called preprocessors. For this example we can just move our last example plugin into this new folder.</p>
+<pre><code>mkdir ./example-book/preprocessors
+cp ./target/wasm32-unknown-unknown/debug/example-plugin.Wasm ./example-book/preprocessors
+</code></pre>
+<p>Now we can update our runner to look in that directory instead of compiling the bytes into the binary file.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use docopt::Docopt;
+use serde::Deserialize;
+use serde_json::{
+    from_reader, 
+    to_writer,
+};
+use std::{
+    process::exit,
+    io::{
+        stdin,
+        stdout,
+        Read,
+    },
+    fs::File,
+};
+use mdbook::{
+    book::Book,
+    preprocess::PreprocessorContext,
+};
+use bincode::{
+    serialize,
+    deserialize,
+};
+use wasmer_runtime::{
+    instantiate,
+    imports,
+};
+
+static USAGE: &amp;str = &quot;
+Usage:
+    mdbook-wasm-preprocessor
+    mdbook-wasm-preprocessor supports &lt;supports&gt;
+&quot;;
+
+#[derive(Deserialize)]
+struct Opts {
+    pub arg_supports: Option&lt;String&gt;,
+}
+
+fn main() {
+    // Parse and deserialize command line
+    // arguments
+    let opts: Opts = Docopt::new(USAGE)
+                    .and_then(|d| d.deserialize())
+                    .unwrap_or_else(|e| e.exit());
+    // If the arg supports was include
+    // we need to handle that
+    if let Some(renderer_name) = opts.arg_supports {
+        // This will always resolve
+        // to `true` for mdbook
+        exit(0);
+    }
+    // Parse and deserialize the context and book
+    // from stdin
+    let (ctx, book): (PreprocessorContext, Book) = 
+        from_reader(stdin())
+        .expect(&quot;Failed to deserialize context and book&quot;);
+    // Update the book's contents
+    let updated = run_all_preprocessors(ctx, book)
+        .expect(&quot;Failed to preprocess book&quot;);
+    // serialize and write the updated book
+    // to stdout
+    to_writer(stdout(), &amp;updated)
+        .expect(&quot;Failed to serialize/write book&quot;);
+}
+
+fn run_all_preprocessors(ctx: PreprocessorContext, mut book: Book) -&gt; Result&lt;Book, String&gt; {
+    // ctx.root will tell us where our book lives
+    let dir = ctx.root.join(&quot;preprocessors&quot;);
+    // loop over all of the preprocessors files there
+    for entry in dir.read_dir()
+        .map_err(|e| format!(&quot;Error reading preprocessors directory {}&quot;, e))? {
+        // safely unwrap the dir entry
+        let entry = entry
+            .map_err(|e| format!(&quot;Error reading entry {}&quot;, e))?;
+        // pull out the path we are working on
+        let path = entry.path();
+        // Check if the path ends with .wasm
+        if let Some(ext) = path.extension() {
+            if ext == &quot;wasm&quot; {
+                // if it does we want to read all the bytes into
+                // a buffer
+                let mut buf = Vec::new();
+                let mut f = File::open(&amp;path)
+                    .map_err(|e| format!(&quot;Error opening file {:?}, {}&quot;, path, e))?;
+                f.read_to_end(&amp;mut buf)
+                    .map_err(|e| format!(&quot;Error reading file {:?}, {}&quot;, path, e))?;
+                // We can now pass this off to our original preprocess
+                book = preprocess(buf.as_slice(), book)?;
+            }
+        }
+    }
+    Ok(book)
+}
+
+/// Update the book's contents so that all Wasms are
+/// replaced with Wasm
+fn preprocess(bytes: &amp;[u8], book: Book) -&gt; Result&lt;Book, String&gt; {
+    // instantiate the Wasm module with the bytes provided
+    let instance = instantiate(bytes, &amp;imports!{})
+        .expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    let bytes = serialize(&amp;book)
+        .expect(&quot;Failed to serialize tuple&quot;);
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5]
+                .iter()
+                .zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let wasm_preprocess = instance.func::&lt;(i32, u32), i32&gt;(&quot;_preprocess&quot;)
+        .expect(&quot;Failed to bind _preprocess&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = wasm_preprocess.call(5 as i32, len as u32)
+        .expect(&quot;Failed to execute _preprocess&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view
+            .get(i + 1)
+            .map(|c| c.get())
+            .unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let updated_bytes: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    deserialize(&amp;updated_bytes)
+        .map_err(|e| format!(&quot;Error deserializing after Wasm update\n{}&quot;, e))
+}
+</code></pre></pre>
+<p>The big changes here is that we are passing the context and book off to <code>run_all_preprocessors</code> instead of just <code>preprocess</code>. In this new function we are going to first construct the path that will contain our Wasm preprocessors. The context will have a <code>root</code> field that will tell us where our book lives, we can append &quot;preprocessors&quot; on to that with <code>join</code>. Now that we have our path we want to loop over each of the files in that directory and if then end in .Wasm we want to pass those bytes off to <code>preprocess</code> with the book. The result of that should replace our previous book and we will return the updated book after all of the Wasm files have been run. All in all we seem to have a pretty viable plugin runner. There may be a few places that could use some tweaks to increase resiliency or reduce the memory footprint but at least it should be enough to get started.</p>
+<p>If your interested I have built a less educational version of this plugin system which you can find <a href="https://github.com/FreeMasen/wasmer-plugin">here</a>. My hope is that I can add a few more niceties in the coming months that will focus on the plugin runner side of things (like extracting more data from errors in Wasm or wrapping up the instantiate/serialize/inject/execute/extract/deserialize cycle). If you have any comments, questions, suggestions or gripes feel free to shoot me an email at r [at] robertmasen.com or find me on twitter @freemasen.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="part_3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="part_3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

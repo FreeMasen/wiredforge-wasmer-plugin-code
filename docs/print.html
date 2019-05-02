@@ -1,0 +1,1721 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Example Book</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="part_1.html"><strong aria-hidden="true">1.</strong> Part 1</a></li><li><a href="part_2.html"><strong aria-hidden="true">2.</strong> Part 2</a></li><li><a href="part_3.html"><strong aria-hidden="true">3.</strong> Part 3</a></li><li><a href="part_4.html"><strong aria-hidden="true">4.</strong> Part 4</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Example Book</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#chapter-1" id="chapter-1"><h1>Chapter 1</h1></a>
+<p>A few months ago, the <a href="https://wasmer.io">Wasmer</a> team announced a Web Assembly (aka Wasm) interpreter that could be embedded into rust programs. This is particularly exciting for anyone looking to add plugins to their project and since Rust provides a way to directly compile programs to wasm, it seems like a perfect option. In this series of blog posts we are going to investigate what building a plugin system using wasmer and rust would take.</p>
+<a class="header" href="#the-setup" id="the-setup"><h2>The Setup</h2></a>
+<p>Before we really dig into the specifics, we should have a layout in mind for our project. That way if you want to follow along on your own computer, you can and if your not, nothing will seem like <em>magic</em>. To do this we are going to take advantage of cargo's workspace feature which allows us to collect a bunch of related projects in one parent project. You can also find a github repo with all of the code <a href="https://github.com/FreeMasen/wiredforge-wasmer-plugin-code">here</a>, each branch will represent a different state of this series. The basic structure we are going to shoot for would look something like this.</p>
+<pre><code>wasmer-plugin-example
+├── Cargo.toml
+├── crates
+│   ├── example-macro
+│   │   ├── Cargo.toml
+│   │   └── src
+│   │       └── lib.rs
+│   ├── example-plugin
+│   │   ├── Cargo.toml
+│   │   └── src
+│   │       └── lib.rs
+│   └── example-runner
+│       ├── Cargo.toml
+│       └── src
+│           └── main.rs
+└── src
+    └── lib.rs
+</code></pre>
+<ul>
+<li><code>wasmer-plugin-example</code> - A rust library, the details of which we will cover in detail in one of the next parts
+<ul>
+<li><code>crates</code> - The folder that will house all of our other projects
+<ul>
+<li><code>example-plugin</code> - The plugin we will use to test that everything is working as expected</li>
+<li><code>example-runner</code> - A Binary project that will act as our plugin host</li>
+<li><code>example-macro</code> - A <code>proc_macro</code> library that we will be creating in one of the next parts</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>To set this up we are going to start by creating the parent project.</p>
+<pre><code>cargo new --lib wasmer-plugin-example
+cd wasmer-plugin-example
+</code></pre>
+<p>Once that has been created we can move into that directory and in your editor of choice you would then open the Cargo.toml. We need to add a <code>[workspace]</code> table to the configuration and point to the 3 projects in the <code>crates</code> folder from above.</p>
+<pre><code class="language-toml">[package]
+name = &quot;wasmer-plugin-example&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;freemasen &lt;r@wiredforge.com&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+
+
+[workspace]
+members = [
+    &quot;./crates/example-macro&quot;,
+    &quot;./crates/example-plugin&quot;,
+    &quot;./crates/example-runner&quot;,
+]
+</code></pre>
+<p>Now we can make that <code>crates</code> folder and the projects that will live inside it.</p>
+<pre><code>mkdir ./crates
+cd ./crates
+cargo new --lib example-plugin
+cargo new --lib example-macro
+cargo new example-runner
+</code></pre>
+<p>With that we have our workspace setup. This will allow us to use cargo commands from any of the directories inside our project and target activity in any other project in our workspace. We tell cargo which project we want an action to apply to with the <code>-p</code> argument. If we wanted to build the <code>example-plugin</code> project for instance we would use the following command.</p>
+<pre><code>cargo build -p example-plugin
+</code></pre>
+<p>With our workspace all setup, we should take a moment and get our development environment in order. First and for most we need to have the rust compiler, <code>cargo</code> and <code>rustup</code>. If you need those head over to <a href="https://rustup.rs/">rustup.rs</a>. With all that installed we are going to need the web assembly target from <code>rustup</code>.</p>
+<pre><code>rustup target add wasm32-unknown-unknown
+</code></pre>
+<p>In addition to are rust requirements, we will also need a few things for wasmer. The full guide is available <a href="https://github.com/wasmerio/wasmer#dependencies">here</a>, for most system you just need to make sure <code>cmake</code> is installed, for windows it is slightly more complicated but there are links on dependency guide.</p>
+<a class="header" href="#our-first--plugin" id="our-first--plugin"><h2>Our First  Plugin</h2></a>
+<p>With that out of the way, we should talk about the elephant in the room, the Web Assembly specification only allows for the existence of numbers. Thankfully the web assembly target for rust can already handle this inside of a single program for us but any function in a plugin we want to call from our runner will need to only take numbers as arguments and only return numbers. With that in mind let's start with a very simple example. I will note that the examples in this part will not be very useful but I promise we will slowly build up the ability to do much more interesting things.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+#[no_mangle]
+pub fn add(one: i32, two: i32) -&gt; i32 {
+    one + two
+}
+#}</code></pre></pre>
+<p>The above is an extremely naive and uninteresting example of what a plugin might look like but it fits our requirement that it only deals with numbers. Now to get this to compile to Web Assembly, we need to set one more thing up in our <code>Cargo.toml</code>.</p>
+<pre><code class="language-toml"># ./crates/example-plugin/Cargo.toml
+[package]
+name = &quot;example-plugin&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;freemasen &lt;r@wiredforge.com&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>The key here is the <code>crate-type = [&quot;cdylib&quot;]</code>, which says that we want this crate to be compiled as a C dynamic library. Now we can compile it with the following command</p>
+<pre><code>cargo build --target wasm32-unknown-unknown
+</code></pre>
+<p>At this point we should have a file in <code>./target/wasm32-unknown-unknown/debug/example_plugin.wasm</code>. Now that we have that, let's build a program that will run this, first we will get our dependencies all setup.</p>
+<a class="header" href="#our-first-runner" id="our-first-runner"><h2>Our First Runner</h2></a>
+<pre><code class="language-toml"># ./crates/example-runner/Cargo.toml
+[package]
+name = &quot;example-runner&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;freemasen &lt;r@wiredforge.com&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer_runtime = &quot;0.3.0&quot;
+</code></pre>
+<p>Here we are adding the <code>wamer_runtime</code> crate which we will use to interact with our web assembly module.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    // Instantiate the web assembly module
+    let instance = instantiate(Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // Bind the add function from the module
+    let add = instance.func::&lt;(i32, i32), i32&gt;(&quot;add&quot;).expect(&quot;failed to bind function add&quot;);
+    // execute the add function
+    let three = add.call(1, 2).expect(&quot;failed to execute add&quot;);
+    println!(&quot;three: {}&quot;, three); // &quot;three: 3&quot;
+}
+</code></pre></pre>
+<p>First, we have our <code>use</code> statement, there was are just grabbing 2 things; the <code>imports</code> macro for easily defining our import object and the <code>instantiate</code> function for converting bytes into a web assembly module instance. We are going to use the <code>include_bytes!</code> macro for now to read our bytes but eventually we will want to make this a little more flexible.  Inside of our <code>main</code> we are going to call <code>instantiate</code> with the Wasm bytes as the first argument and an empty imports object as the second. Next we are going to use the <code>func</code> method on <code>instance</code> to bind the function <code>add</code> giving it the arguments types of two <code>i32</code>s and a return value of an <code>i32</code>. At this point we can use the <code>call</code> method on the function <code>add</code>, and then print the result to the terminal. When we <code>cargo run</code> it should successfully print <code>three: 3</code> in the terminal.</p>
+<p>Huzzah, success! but that isn't super useful. Let's investigate what we would need to make it more useful.</p>
+<a class="header" href="#digging-deeper" id="digging-deeper"><h2>Digging Deeper</h2></a>
+<a class="header" href="#our-requirements" id="our-requirements"><h3>Our requirements</h3></a>
+<ol>
+<li>Access to the Wasm Memory before our function runs</li>
+<li>A way to insert a more complicated data structure into that memory</li>
+<li>A method to communicate where and what the data is to the Wasm module</li>
+<li>A system for extracting the update information from the Wasm memory after the plugin is executed</li>
+</ol>
+<p>First we need a way to initialize some value into the Wasm module's memory before we run our function. Thankfully <code>wasmer_runtime</code> gives us a way to do exactly that. Let's update our example to take in a string and return the length of that string, this isn't going to be much more useful than our last example but... baby steps.</p>
+<p><img src="https://media0.giphy.com/media/NAe117ka9jAdi/giphy.gif?cid=790b76115cb8b4c2565a54784d25a2f4" alt="Bill Murray everyone..." /></p>
+<a class="header" href="#our-second-plugin" id="our-second-plugin"><h3>Our Second Plugin</h3></a>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+
+/// This is the actual code we would 
+/// write if this was a pure rust
+/// interaction
+pub fn length(s: &amp;str) -&gt; u32 {
+    s.len() as u32
+}
+
+/// Since it isn't we need a way to
+/// translate the data from wasm
+/// to rust
+#[no_mangle]
+pub fn _length(ptr: i32, len: u32) -&gt; u32 {
+    // Extract the string from memory.
+    let value = unsafe { 
+        let slice = ::std::slice::from_raw_parts(ptr as _, len as _);
+        String::from_utf8_lossy(slice)
+    };
+    //pass the value to `length` and return the result
+    length(&amp;value)
+}
+#}</code></pre></pre>
+<p>There is quite a bit more that we needed to do this time around, let's go over what is happening. First we have defined a function <code>length</code>, this is exactly what we would want to if we were using this library from another rust program. Since we are using this library as a Wasm module, we need to add a helper that will deal with all of the memory interactions. This may seem like an odd structure but doing it this way allows for additional flexibility which will become more clear as we move forward. The <code>_length</code> function is going to be that helper. First, we need the arguments and return values to match what is available when crossing the Wasm boundary (only numbers). Our arguments then will describe the shape of our string, <code>ptr</code> is the start of the string and <code>len</code> is the length. Since we are dealing with raw memory, we need to do the conversion inside of an <code>unsafe</code> block (I know that is a bit scary but we are going to make sure that there actually is a string there in the runner). Once we pull the string out of memory, we can pass it over to <code>length</code> just like normal, returning the result. Go ahead and build it just like before.</p>
+<pre><code>cargo build --target wasm32-unknown-unknown
+</code></pre>
+<p>Now let's cover how we would set this up in the runner.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // This is the string we are going to pass into wasm
+    let s = &quot;supercalifragilisticexpialidocious&quot;.to_string();
+    // This is the string as bytes
+    let bytes = s.as_bytes();
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[1..len + 1].iter().zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let length = instance.func::&lt;(i32, u32), u32&gt;(&quot;_length&quot;).expect(&quot;Failed to bind _length&quot;);
+    let wasm_len = match length.call(1 as i32, len as u32) {
+        Ok(l) =&gt; l,
+        Err(e) =&gt; panic!(&quot;{}\n\n{:?}&quot;, e, e),
+    }; //.expect(&quot;Failed to execute _length&quot;);
+    println!(&quot;original: {}, wasm: {}&quot;, len, wasm_len); // original: 34, wasm: 34
+}
+</code></pre></pre>
+<p>Ok, there is quite a bit more going on this time around. The first few lines are going to be exactly the same, we are going to read in the Wasm and then instantiate it. Once that is done, we are going to get a view into the Wasm memory, we do this by first getting the <code>Ctx</code> (context) from the module instance. Once we have the context we can pull out the memory by calling <code>memory(0)</code>, web assembly only has one memory currently so in the short term this will always take the value 0 but moving forward there may be more than one memory allowed. One last step to actually get the raw memory is to call the <code>view()</code> method, we are finally at a stage where we can modify the module's memory. The type of <code>view</code> is <code>Vec&lt;Cell&lt;u8&gt;&gt;</code>, so we have a vector of bytes but each of the bytes is wrapped in a <code>Cell</code>. A <a href="https://doc.rust-lang.org/std/cell/struct.Cell.html"><code>Cell</code></a> according to the documentation is a way to allow mutating one part of an immutable value, in our case it is essentially saying &quot;I'm not going to make this memory any longer or shorter, just change what its values are&quot;.</p>
+<p>Now we define the string we want to pass into the Wasm memory and convert that to bytes. We also want to keep track of the byte length of that string so we capture that as <code>len</code>. To put the string bytes into the memory bytes we are going to use the <a href="https://doc.rust-lang.org/std/iter/struct.Zip.html"><code>Zip</code></a> iterator, which just lets us loop over two things at one time. In each iteration of our loop, we are going to stop at both the cell and the string byte in the same index, in the loop body we are setting the value of the Wasm memory byte to the value of the string's byte. Notice that we started at index 1 in the <code>view</code>, that means our <code>ptr</code> parameter is going to be 1 and our byte length is going to be the <code>len</code> parameter.</p>
+<pre><code>cargo run
+original: 34, wasm: 34
+</code></pre>
+<p>Huzzah! Success again! But alas, still pretty useless. It does however give us a good foundation to build upon for working with more complicated data. We saw how to interact with the Wasm memory on both sides of the equation which we will exploit in part 2.</p>
+<p><a href="/blog/wasmer-plugin-pt-2/index.html">part two</a></p>
+<p>If you haven't seen it yet, you may want to checkout <a href="/blog/wasmer-plugin-pt-1/index.html">part one</a> where we went over the basics of using wasmer. In this post we are going to cover how we could pass more complicated data from the Wasm module back to the runner.</p>
+<a class="header" href="#yet-another-plugin" id="yet-another-plugin"><h3>Yet Another Plugin</h3></a>
+<p>To start we are going to create another plugin, this one will take a string as an argument and return that string doubled. Here is what that plugin would look like.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+
+/// This is the actual code we would 
+/// write if this was a pure rust
+/// interaction
+pub fn double(s: &amp;str) -&gt; String {
+    s.repeat(2)
+}
+
+/// Since it isn't we need a way to
+/// translate the data from wasm
+/// to rust
+#[no_mangle]
+pub fn _double(ptr: i32, len: u32) -&gt; i32 {
+    // Extract the string from memory.
+    let value = unsafe { 
+        let slice = ::std::slice::from_raw_parts(ptr as _, len as _);
+        String::from_utf8_lossy(slice)
+    };
+    // pass the value to `double` and 
+    // return the result as a pointer
+    double(&amp;value).as_ptr() as i32
+}
+#}</code></pre></pre>
+<p>Most of what is going on here is exactly what we did the last time, the only difference is in that last line it has <code>.as_ptr()</code> added to it and the return value is now <code>i32</code>. <code>as_ptr</code> is a method that will return the byte index in memory of a value, which normally would be a pretty scary thing to deal with but I promise that we are going to survive. So how would we use this new plugin?</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // This is the string we are going to pass into wasm
+    let s = &quot;supercalifragilisticexpialidocious&quot;.to_string();
+    // This is the string as bytes
+    let bytes = s.as_bytes();
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[1..len + 1].iter().zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let double = instance.func::&lt;(i32, u32), i32&gt;(&quot;_double&quot;).expect(&quot;Failed to bind _double&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = double.call(1 as i32, len as u32).expect(&quot;Failed to execute _double&quot;) as usize;
+    // Calculate the end as the start + twice the length
+    let end = start + (len * 2);
+    // Capture the string as bytes 
+    // from a fresh view of the Wasm memory
+    let string_buffer: Vec&lt;u8&gt; = memory
+                                    .view()[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    let wasm_string = String::from_utf8(string_buffer)
+                            .expect(&quot;Failed to convert Wasm memory to string&quot;);
+    println!(&quot;doubled: {}&quot;, wasm_string);
+}
+</code></pre></pre>
+<p>Again, almost all of this is going to be reused from the last example. We need to change the type arguments for <code>func</code> ever so slightly and the name of the function. Next we are going to call the <code>func</code> just like we did the last time, this time the return value is going to represent the index for the start of our new string. Since we will only ever double the string we can calculate the end by adding twice the original length plus the start, with both the start and the end we can capture the bytes as a slice. If you have the bytes as a slice you can try and convert it into a string using the <code>String::from_utf8</code> method. If we were to run this we should see the following.</p>
+<pre><code>cargo run
+doubled: supercalifragilisticexpialidocioussupercalifragilisticexpialidocious
+</code></pre>
+<p>Huzzah! Success... though the situations where you would know the size of any data after a plugin ran is going to be too small to be useful. Now the big question becomes, if web assembly functions can only return 1 value how could we possibly know both the start and the length of any value coming back? One solution would be to reserve a section of memory that the Wasm module could put the length in and then get the length when it's done.</p>
+<a class="header" href="#two-values-from-one-function" id="two-values-from-one-function"><h2>Two values from one function</h2></a>
+<p>Let's keep the same basic structure of our last plugin, this time though, we are going to get the length from a reserved part of memory.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub fn double(s: &amp;str) -&gt; String {
+    s.repeat(2)
+}
+
+#[no_mangle]
+pub fn _double(ptr: i32, len: u32) -&gt; i32 {
+    // Extract the string from memory.
+    let value = unsafe { 
+        let slice = ::std::slice::from_raw_parts(ptr as _, len as _);
+        String::from_utf8_lossy(slice)
+    };
+    // Double it
+    let ret = double(&amp;value);
+    // Capture the length
+    let len = ret.len() as u32;
+    // write the length to byte 1 in memory
+    unsafe {
+        ::std::ptr::write(1 as _, len);
+    }
+    // return the start index
+    ret.as_ptr() as _
+}
+#}</code></pre></pre>
+<p>This time in our plugin we have one change, the call to <a href="https://doc.rust-lang.org/std/ptr/fn.write.html"><code>::std::ptr::write</code></a>, which will write to any place in memory you tell it to any value you want. This is a pretty dangerous thing to do, it is important that we have all our ducks in a row or we may corrupt some existing memory. This is going to write the 4 bytes that make up the variable <code>len</code> into memory at index 1, 2, 3, and 4. The key to making that work is that we are going to need to leave those 4 bytes empty when we insert our value from the runner.</p>
+<p>Let's build that.</p>
+<pre><code>cargo -p example-plugin --target wasm32-unknown-unknown
+</code></pre>
+<p>Now we can get started on the runner.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    // This is the string we are going to pass into wasm
+    let s = &quot;supercalifragilisticexpialidocious&quot;.to_string();
+    // This is the string as bytes
+    let bytes = s.as_bytes();
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5].iter().zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let double = instance.func::&lt;(i32, u32), i32&gt;(&quot;_double&quot;).expect(&quot;Failed to bind _double&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = double.call(5 as i32, len as u32).expect(&quot;Failed to execute _double&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view.get(i + 1).map(|c| c.get()).unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let string_buffer: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    let wasm_string = String::from_utf8(string_buffer)
+                            .expect(&quot;Failed to convert Wasm memory to string&quot;);
+    println!(&quot;doubled: {}&quot;, wasm_string);
+}
+</code></pre></pre>
+<p>Ok, a few more things are going on in this one. First we immediately update the memory's bytes 1 through 4 to be set to 0, this is where we are going to put the new length. We continue normally until after we call <code>_double</code>. This time through we are going to pull those first 4 bytes out of the Wasm memory into a 4 byte array and convert that to a u32. We need to cast this u32 to a usize because we are going to be using it in as an index later. We can now update our <code>end</code> to use this new value instead of the old one. From that point on we keep going the same way. If we were to run this we should see the following.</p>
+<pre><code>cargo run
+doubled: supercalifragilisticexpialidocioussupercalifragilisticexpialidocious
+</code></pre>
+<p>Huzzah! Success... and it is far more robust that before. If we executed a Wasm module that exported <code>_double</code> that actually tripled a string or cut the string in half, we would still know the correct length. Now that we can pass arbitrary sets of bytes from rust to Wasm and back again that means we have to tools to pass more complicated data. All we need now is a way to turn any struct into bytes and then back again, for that we can use something like <a href="https://github.com/TyOverby/bincode"><code>bincode</code></a> which is a binary serialization format used by <a href="https://github.com/servo/webrender">WebRender</a> and <a href="https://github.com/servo/ipc-channel">Servo's ipc-channel</a>. It implements the traits defined by the <a href="https://serde.rs/"><code>serde</code></a> crate which greatly opens our options.</p>
+<p>Since there are a bunch of <code>serde</code> trait implementations for a bunch of standard rust types including strings and tuples, let's leverage that to create a slightly more interesting example.</p>
+<a class="header" href="#slightly-more-interesting" id="slightly-more-interesting"><h3>Slightly More Interesting™</h3></a>
+<p>First we want to update the dependencies for both our runner and plugin projects. Update the 2 Cargo.toml files to look like this.</p>
+<pre><code># ./crates/example-runner/Cargo.toml
+[package]
+name = &quot;example-runner&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer-runtime = &quot;0.3.0&quot;
+bincode = &quot;1&quot;
+</code></pre>
+<pre><code># ./crates/example-plugin/Cargo.toml
+[package]
+name = &quot;example-plugin&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+bincode = &quot;1&quot;
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>Now we can use bincode both of these projects. This time around, the goal is going to be to create a plugin that will take a tuple of a u8 and a string and return an updated version of that tuple.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+use bincode::{deserialize, serialize};
+/// This is the actual code we would 
+/// write if this was a pure rust
+/// interaction
+pub fn multiply(pair: (u8, String)) -&gt; (u8, String) {
+    // create a repeated version of the string
+    // based on the u8 provided
+    let s = pair.1.repeat(pair.0 as usize);
+    // Multiply the u8 by the length
+    // of the new string
+    let u = pair.0.wrapping_mul(s.len() as u8);
+    (u, s)
+}
+
+/// Since it isn't we need a way to
+/// translate the data from wasm
+/// to rust
+#[no_mangle]
+pub fn _multiply(ptr: i32, len: u32) -&gt; i32 {
+    // Extract the string from memory.
+    let slice = unsafe { 
+        ::std::slice::from_raw_parts(ptr as _, len as _)
+    };
+    // deserialize the memory slice
+    let pair = deserialize(slice).expect(&quot;Failed to deserialize tuple&quot;);
+    // Get the updated version
+    let updated = multiply(pair);
+    // serialize the updated value
+    let ret = serialize(&amp;updated).expect(&quot;Failed to serialize tuple&quot;);
+    // Capture the length
+    let len = ret.len() as u32;
+    // write the length to byte 1 in memory
+    unsafe {
+        ::std::ptr::write(1 as _, len);
+    }
+    // return the start index
+    ret.as_ptr() as _
+}
+#}</code></pre></pre>
+<p>Just like last time time we take in our <code>ptr</code> and <code>len</code> arguments, we pass those along to <code>::std::slice::from_raw_parts</code> which creates a reference to our bytes. After we get those bytes we can deserialize them into a tuple of a u8 and a string. Now we can pass that tuple along to the <code>multiply</code> function and capture the results as <code>updated</code>. Next we are going to serialize that value into a <code>Vec&lt;u8&gt;</code> and as the variable <code>ret</code>. The rest is going to be exactly like our string example, capture the length, write it to memory index 1 and return the start index of the bytes. Let's build this.</p>
+<pre><code>cargo -p example-plugin --target wasm32-unknown-unknown
+</code></pre>
+<p>Now for our runner.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use wasmer_runtime::{
+    imports,
+    instantiate,
+};
+
+use std::time::{
+    UNIX_EPOCH,
+    SystemTime,
+};
+
+use bincode::{
+    deserialize,
+    serialize,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+fn main() {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{}).expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    // This is the string we are going to pass into wasm
+    let s = &quot;supercalifragilisticexpialidocious&quot;.to_string();
+    let now = SystemTime::now();
+    let diff = now.duration_since(UNIX_EPOCH).expect(&quot;Failed to calculate timestamp&quot;);
+    let u = ((diff.as_millis() % 10) + 1) as u8;
+    let pair = (u, s);
+    let bytes = serialize(&amp;pair).expect(&quot;Failed to serialize tuple&quot;);
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5].iter().zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let double = instance.func::&lt;(i32, u32), i32&gt;(&quot;_multiply&quot;).expect(&quot;Failed to bind _multiply&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = double.call(5 as i32, len as u32).expect(&quot;Failed to execute _multiply&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view.get(i + 1).map(|c| c.get()).unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let updated_bytes: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    let updated: (u8, String) = deserialize(&amp;updated_bytes)
+                            .expect(&quot;Failed to convert Wasm memory to tuple&quot;);
+    println!(&quot;multiply {}: ({}, {:?})&quot;, pair.0, updated.0, updated.1);
+}
+</code></pre></pre>
+<p>First, we have updated our <code>use</code> statements to include some <code>std::time</code> items and the bincode functions for serializing and deserializing. We are going to use the same string as we did last time and calculate a pseudo random number between 1 and 10 that will serve as the parts of our tuple. Once we have constructed our tuple, we pass that off to <code>bincode::serialize</code> which gets us back to a <code>Vec&lt;u8&gt;</code>. We continue on just like our string example until after we get the new length back from the Wasm module. At this point we are going to build the updated_bytes the same as before and pass those along to <code>bincode::deserialize</code> which should get us back to a tuple.</p>
+<pre><code>cargo run
+multiply 2: (136, &quot;supercalifragilisticexpialidocioussupercalifragilisticexpialidocious&quot;)
+</code></pre>
+<p>Huzzah! Another success! At this point it might be a good idea to address the ergonomics all of this, if we asked another developer to understand all of this, do you think anyone would build a plugin for our system? Probably not. In the next post we are going to cover how to ease that process by leveraging <code>proc_macros</code>.</p>
+<p><a href="/blog/wasmer-plugin-pt-3/index.html">part three</a></p>
+<p>+++
+title = &quot;Using Wasmer for Plugins Part 3&quot;
+date = 2019-04-22
+draft = false
+[extra]
+snippet = &quot;Now with more ease&quot;
+image = &quot;rust-logo-blk.png&quot;
+date_sort = 20190422
+image_desc = &quot;Made by Freepik from www.flaticon.com, licensed by CC-3.0-BY&quot;
++++</p>
+<p>In the last two posts of this series we covered all of the things we would need to use <a href="http://wasmer.io"><code>Wasmer</code></a> as the base for a plugin system. In <a href="/blog/wasmer-plugin-pt-1/index.html">part one</a> we went over the basics of passing simple data in and out of a web assembly module, in <a href="/blog/wasmer-plugin-pt-2/index.html">part two</a> we dug deeper into how you might do the same with more complicated data. In this part we are going to explore how we might ease the experience for people developing plugins for our application.</p>
+<p>The majority of this is going to happen in a <code>proc_macro</code>, if you have never built one of these before, it can seem intimidating but we will go slow so don't fret. The first thing to understand is that <code>proc_macro</code>s are <em>meta-programming</em>, meaning we are writing code that writes code. Currently there are 3 options to chose from when writing a <code>proc_macro</code> but they all follow the same basic structure; a function that will take <a href="https://doc.rust-lang.org/proc_macro/struct.TokenStream.html"><code>TokenStream</code></a>s as arguments and return a <code>TokenStream</code>. A <code>TokenStream</code> is a collection of rust language parts, for example a keyword like <code>fn</code> or punctuation like <code>{</code>. It is almost like we are getting the text from a source file and returning a modified version of that text, though we get the added benefit of the fact that <code>rustc</code> is going to have validated it at least knows all of the parts in that text and will only let us add parts to it that it knows. To make this whole process a little easier, we are going to lean on a few crates pretty heavily, they are <a href="https://crates.io/crates/syn"><code>syn</code></a>,  <a href="https://crates.io/crates/proc-macro2"><code>proc-macro2</code></a>, and <a href="https://crates.io/crates/quote"><code>quote</code></a>.
+<code>syn</code> is going to parse the <code>TokenStream</code> into a structure that has more information, it will help answer questions like 'is this a function?' or 'is this function public?'. Many parts of that's structure are provided by <code>proc-macro2</code>. <code>quote</code> is going to help us create a <code>TokenStream</code> by &quot;quasi-quoting&quot; some rust text, we'll get into what that means in just a moment.</p>
+<p>Now that we have our dependencies outlined, let's talk about the three types of <code>proc_macro</code>s. First we have a <em>custom derive</em>, if you have ever use the <code>#[derive(Serialize)]</code> attribute, you have used a custom derive. For these, we need to define a function that takes a single <code>TokenStream</code> argument and returns a new <code>TokenStream</code>, this return value will be append to the one passed in. That mean's we can't modify the original code, only augment it with something like an <code>impl</code> block, which makes it great for deriving a trait. Another option is often referred to as <em>function like</em> macros, these look just like the macros created with <code>#[macro_rules]</code> when used but are defined using a similar system to the custom derives. The big difference between custom derives and function like macros is the return value for the latter is going to replace the argument provided, not extend it. Lastly we have the <em>attribute like</em> macros, this is the one we are going to use. Attribute macros work the same as function like macros in that they will replace the code provided. The big difference is that an attribute definition the function we write will take 2 arguments, the first of which will be the contents of the attribute and the second is what that attribute is sitting on top of. To use the example from the rust book</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[route(GET, &quot;/&quot;)]
+fn index() {
+
+}
+#}</code></pre></pre>
+<p>The first argument is going to include <code>GET</code> and <code>&quot;/&quot;</code> and the second will contain the function <code>index</code>. With that basic structure defined, let's get started with our example. We are going to be making these edits in the <code>example-macro</code> project we added in part 1. Let's get those dependencies listed in the Cargo.toml.</p>
+<pre><code class="language-toml"># ./crates/example-macro/Cargo.toml
+[package]
+name = &quot;example-macro&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+quote = &quot;0.6&quot;
+proc-macro2 = &quot;0.4&quot;
+syn = { version = &quot;0.15&quot;, features = [&quot;full&quot;] }
+
+[lib]
+proc-macro = true
+
+</code></pre>
+<p>A few things to note here, first <code>syn</code> is pretty heavily feature gated, for this we want to add the &quot;full&quot; feature which will allow us to use all of the different types defined there. The next thing to point out is in the <code>[lib]</code> table we are going to add <code>proc-macro = true</code> to tell cargo that this crate will only contain a proc_macro. Currently proc_macros need to be defined in their own crates. With that out of the way we can get started editing our <code>lib.rs</code>.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-macro/src/lib.rs
+extern crate proc_macro;
+use proc_macro::TokenStream;
+
+#[proc_macro_attribute]
+pub fn plugin_helper(_attr: TokenStream, tokens: TokenStream) -&gt; TokenStream {
+    tokens
+}
+#}</code></pre></pre>
+<p>First, we need to declare the use of the <code>proc_macro</code> crate that rust provides. Next we are going to use the <code>TokenStream</code> that is provided there. Our exported function is going to start with the <code>#[proc_macro_attribute]</code> attribute which will mark this function as an attribute with the same name. This function needs to take two arguments, both with the type <code>TokenStream</code> and return a <code>TokenStream</code>, just like we went over before. In this example we are just going to return the same value we were provided. Let's use our <code>example-plugin</code> project to see what it does. First we need to make sure that our macro is in the dependencies.</p>
+<pre><code class="language-toml"># ./crates/example-plugin/Cargo.toml
+[package]
+name = &quot;example-plugin&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+bincode = &quot;1&quot;
+example-macro = { path = &quot;../example-macro&quot; }
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>Then we can use it like this.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+use bincode::{deserialize, serialize};
+use example_macro::*;
+/// This is the actual code we would 
+/// write if this was a pure rust
+/// interaction
+#[plugin_helper]
+pub fn multiply(pair: (u8, String)) -&gt; (u8, String) {
+    // create a repeated version of the string
+    // based on the u8 provided
+    let s = pair.1.repeat(pair.0 as usize);
+    // Multiply the u8 by the length
+    // of the new string
+    let u = pair.0.wrapping_mul(s.len() as u8);
+    (u, s)
+}
+#}</code></pre></pre>
+<p>But... how can we see anything about this? We could <code>cargo build</code> to see if that works but that doesn't provide us much information. Thankfully there is a great 3rd party cargo command called <code>cargo-expand</code> that will help us out a ton. This utility relies on the nightly toolchain so we are going to need to get that first via rustup. To make things easier for later, let's also get the Wasm target for the nightly toolchain.</p>
+<pre><code>rustup toolchain add nightly
+rustup target add wasm32-unknown-unknown --target nightly
+</code></pre>
+<p>With that taken care of we can now install <code>cargo-expand</code>.</p>
+<pre><code>cargo install cargo-expand
+</code></pre>
+<p>If we were to run the following command it should print our expanded library to the console.</p>
+<pre><code>cd crates/example-plugin
+cargo +nightly expand -p example-plugin
+</code></pre>
+<blockquote>
+<p>As a side note, if you have an older version of cargo-expand installed it may not have the <code>-p</code> flag implemented, you can upgrade your version to current by running <code>cargo install --force cargo-expand</code> or simply run it from <code>crates/example-plugin</code>.</p>
+</blockquote>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#![feature(prelude_import)]
+#![no_std]
+#fn main() {
+#[prelude_import]
+use ::std::prelude::v1::*;
+#[macro_use]
+extern crate std as std;
+use bincode::{deserialize, serialize};
+use example_macro::*;
+#[doc = &quot; This is the actual code we would &quot;]
+#[doc = &quot; write if this was a pure rust&quot;]
+#[doc = &quot; interaction&quot;]
+pub fn multiply(pair: (u8, String)) -&gt; (u8, String) {
+    let s = pair.1.repeat(pair.0 as usize);
+    let u = pair.0.wrapping_mul(s.len() as u8);
+    (u, s)
+}
+#}</code></pre></pre>
+<p>This is the fully expanded output of our library, not much has change except that we can see a few things that rust will always do to our program like convert out doc comments to attributes. Now let's update our <code>proc_macro</code> to do something a little more interesting.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-macro/src/lib.rs
+extern crate proc_macro;
+use proc_macro::TokenStream;
+use syn::{
+   Item as SynItem,
+};
+use proc_macro2::{
+   Ident,
+   Span,
+};
+use quote::quote;
+
+#[proc_macro_attribute]
+pub fn plugin_helper(_attr: TokenStream, tokens: TokenStream) -&gt; TokenStream {
+    // convert the TokenStream into proc_macro2::TokenStream
+    let tokens2 = proc_macro2::TokenStream::from(tokens);
+    // parse the TokenStream into a syn::Item
+    let parse2 = syn::parse2::&lt;SynItem&gt;(tokens2).expect(&quot;Failed to parse tokens&quot;);
+    // Check if it is a function
+    // if not panic
+    match parse2 {
+        SynItem::Fn(func) =&gt; handle_func(func),
+        _ =&gt; panic!(&quot;Only functions are currently supported&quot;)
+    }
+}
+
+fn handle_func(func: syn::ItemFn) -&gt; TokenStream {
+    // Copy the function's identifier
+    let ident = func.ident.clone();
+    // Create a new identifier with a underscore in front of 
+    // the original identifier
+    let shadows_ident = Ident::new(&amp;format!(&quot;_{}&quot;, ident), Span::call_site());
+    // Generate some rust with the original and new
+    // shadowed function
+    let ret = quote! {
+        #func
+
+        pub fn #shadows_ident() {
+            #ident((2, String::from(&quot;attributed&quot;)));
+        }
+    };
+    ret.into()
+}
+#}</code></pre></pre>
+<p>This time around we are first converting the <code>TokenStream</code> into the <code>proc_macro2::TokenStream</code> which will allow us to parse the tokens. The result of that is a <code>syn::Item</code> which is an enum of all the different types of rust <code>Item</code>s and will allow us to determine exactly what our attribute is decorating. For us, we only want this to work on functions, so we match <code>parse2</code>, if it is a <code>fn</code> we pass the inner data off to <code>handle_func</code> if not, we panic with a message about only supporting <code>fn</code>s.</p>
+<p>Inside of <code>handle_func</code> we first make a copy of the original function's identifier, for our example that would be <code>multiply</code>. Next we are going to use that copy to create a new identifer that will have an underscore at the start: <code>_multiply</code>. To do this we are going to use the <code>proc_macro2::Ident</code> constructor which takes a <code>&amp;str</code> and a <code>Span</code> (the index that this token takes up), we are going to use the <code>format!</code> macro for the first argument and thankfully <code>proc_macro2::Span</code> provides the <code>call_site</code> constructor that we can use which will figure out the index for us.  At this point we are going to use the <code>quote::quote</code> macro to generate a new <code>proc_macro2::TokenStream</code>. This is where that <em>quasi quoting</em> happens, we can use the <code>#variable_name</code> syntax to insert variable's values into some raw text representing a rust program. First we want to put the original function as it was defined at the top, then we want to create a new function with our <code>_multiply</code> identifer the body of which will just call the original function with a constant set of arguments. Let's look at the expanded output.</p>
+<pre><code>cargo expand -p example-plugin
+</code></pre>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#![feature(prelude_import)]
+#![no_std]
+#fn main() {
+#[prelude_import]
+use ::std::prelude::v1::*;
+#[macro_use]
+extern crate std as std;
+// ./crates/example-plugin/src/lib.rs
+use bincode::{deserialize, serialize};
+use example_macro::*;
+
+#[doc = &quot; This is the actual code we would &quot;]
+#[doc = &quot; write if this was a pure rust&quot;]
+#[doc = &quot; interaction&quot;]
+pub fn multiply(pair: (u8, String)) -&gt; (u8, String) {
+    // create a repeated version of the string
+    // based on the u8 provided
+    let s = pair.1.repeat(pair.0 as usize);
+    // Multiply the u8 by the length
+    // of the new string
+    let u = pair.0.wrapping_mul(s.len() as u8);
+    (u, s)
+}
+pub fn _multiply() { multiply((2, String::from(&quot;attributed&quot;))); }
+
+#}</code></pre></pre>
+<p>Another relatively useless transformation but we did successfully generate some code with our macro, now let's get back to our actual goal. If we look back at part 2's last helper function our end goal is going to replicated the following.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[no_mangle]
+pub fn _multiply(ptr: i32, len: u32) -&gt; i32 {
+    let slice = unsafe { 
+        ::std::slice::from_raw_parts(ptr as _, len as _)
+    };
+    let pair = deserialize(slice).expect(&quot;Failed to deserialize tuple&quot;);
+    let updated = multiply(pair);
+    let ret = serialize(&amp;updated).expect(&quot;Failed to serialize tuple&quot;);
+    let len = ret.len() as u32;
+    unsafe {
+        ::std::ptr::write(1 as _, len);
+    }
+    ret.as_ptr() as _
+}
+#}</code></pre></pre>
+<p>We should be able to reproduce that function with our attribute if we just extend the last example a little.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-macro/src/lib.rs
+#![recursion_limit=&quot;128&quot;]
+extern crate proc_macro;
+use proc_macro::TokenStream;
+
+use syn::{Item as SynItem, ItemFn};
+use quote::quote;
+use proc_macro2::{Ident, Span};
+
+#[proc_macro_attribute]
+pub fn plugin_helper(_attr: TokenStream, tokens: TokenStream) -&gt; TokenStream {
+    let tokens2 = proc_macro2::TokenStream::from(tokens);
+    let parse2 = syn::parse2::&lt;SynItem&gt;(tokens2).expect(&quot;Failed to parse tokens&quot;);
+    match parse2 {
+        SynItem::Fn(func) =&gt; handle_func(func),
+        _ =&gt; panic!(&quot;Only functions are currently supported&quot;)
+    }
+}
+
+fn handle_func(func: ItemFn) -&gt; TokenStream {
+    // Check and make sure our function takes
+    // only one argument and panic if not
+    if func.decl.inputs.len() != 1 {
+        panic!(&quot;fns marked with plugin_helper can only take 1 argument&quot;);
+    }
+    // Copy this function's identifier
+    let ident = func.ident.clone();
+    // Create a new identifier with a underscore in front of 
+    // the original identifier
+    let shadows_ident = Ident::new(&amp;format!(&quot;_{}&quot;, ident), Span::call_site());
+    // Generate some code with the original and new
+    // shadowed function
+    let ret = quote! {
+        #func
+
+        #[no_mangle]
+        pub fn #shadows_ident(ptr: i32, len: u32) -&gt; i32 {
+            let value = unsafe {
+                ::std::slice::from_raw_parts(ptr as _, len as _)
+            };
+            let arg = deserialize(value).expect(&quot;Failed to deserialize argument&quot;);
+            let ret = #ident(arg);
+            let bytes = serialize(&amp;ret).expect(&quot;Failed to serialize return value&quot;);
+            let len = bytes.len();
+            unsafe {
+                ::std::ptr::write(1 as _, len);
+            }
+            bytes.as_ptr()
+        }
+    };
+    ret.into()
+}
+#}</code></pre></pre>
+<p>You may notice at the top we need to add the module attribute <code>#![recursion_limit=&quot;128&quot;]</code>, this is because <code>quote</code> does some seriously deep recursion to work its magics. The next change is to add a check that there is only one argument and panic if not to simplify our plugins. We use the same scheme for generating a new identifier for our new function and then we really just ripped to code right out of the last example, replacing <code>multiply(pair)</code> with <code>#ident(arg)</code>. If we run cargo expand on that we get the following.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#![feature(prelude_import)]
+#![no_std]
+#fn main() {
+#[prelude_import]
+use ::std::prelude::v1::*;
+#[macro_use]
+extern crate std as std;
+// ./crates/example-plugin/src/lib.rs
+use bincode::{deserialize, serialize};
+use example_macro::*;
+#[doc = &quot; This is the actual code we would &quot;]
+#[doc = &quot; write if this was a pure rust&quot;]
+#[doc = &quot; interaction&quot;]
+pub fn multiply(pair: (u8, String)) -&gt; (u8, String) {
+    // create a repeated version of the string
+    // based on the u8 provided
+    let s = pair.1.repeat(pair.0 as usize);
+    // Multiply the u8 by the length
+    // of the new string
+    let u = pair.0.wrapping_mul(s.len() as u8);
+    (u, s)
+}
+#[no_mangle]
+pub fn _multiply(ptr: i32, len: u32) -&gt; i32 {
+    let value = unsafe { ::std::slice::from_raw_parts(ptr as _, len as _) };
+    let arg = deserialize(value).expect(&quot;Failed to deserialize argument&quot;);
+    let ret = multiply(arg);
+    let bytes = serialize(&amp;ret).expect(&quot;Failed to serialize return value&quot;);
+    let len = bytes.len() as u32;
+    unsafe { ::std::ptr::write(1 as _, len); }
+    bytes.as_ptr() as _
+}
+#}</code></pre></pre>
+<p>Looks a lot like our last example from part 2!</p>
+<p>Let's try and compile that to Wasm and execute the runner.</p>
+<pre><code>cargo build -p example-plugin --target wasm32-unknown-unknown
+cargo run -p example-runner
+multiply 10: (72, &quot;supercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocious&quot;)
+</code></pre>
+<p>Huzzah! It still works! We are still requiring that plugin developers know a little too much about the inner workings of our system though. Let's use the library we put in the workspace root to take care of this last little hurdle. Instead of importing the macro directly into the plugin, if we were to import it into our library, we would have a more convenient package to provide to plugin developers. We can also take care of our dependencies problem at the same time. Let's update that project to package all of our requirements for the plugin developer, starting with the dependencies.</p>
+<pre><code class="language-toml"># ./Cargo.toml
+[package]
+name = &quot;wasmer-plugin-example&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+serde = &quot;1&quot;
+bincode = &quot;1&quot;
+example-macro = { path = &quot;./crates/example-macro&quot; }
+
+[workspace]
+members = [
+    &quot;./crates/example-macro&quot;,
+    &quot;./crates/example-plugin&quot;,
+    &quot;./crates/example-runner&quot;,
+]
+</code></pre>
+<p>Now in that library we can use the <code>pub use</code> keywords to re-export our macro and also define a couple of helper functions.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./src/lib.rs
+use serde::{Serialize, Deserialize};
+use bincode::{serialize, deserialize};
+
+pub use example_macro::plugin_helper;
+
+pub fn convert_data&lt;'a, D&gt;(bytes: &amp;'a [u8]) -&gt; D 
+where D: Deserialize&lt;'a&gt; {
+    deserialize(bytes).expect(&quot;Failed to deserialize bytes&quot;)
+}
+
+pub fn revert_data&lt;S&gt;(s: S) -&gt; Vec&lt;u8&gt; 
+where S: Serialize {
+    serialize(s).expect(&quot;Failed to serialize data&quot;)
+}
+#}</code></pre></pre>
+<p>We are essentially wrapping the bincode functions we are using in identical function. It would probably be smarter to have these return results but for now this will do. The big win here is that our users will only need to import our library and not need to worry about having <code>serde</code> and <code>bincode</code> available. With those defined we can make a small update in the <code>example-macro</code> to use them.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-macro/src/lib.rs
+#![recursion_limit=&quot;128&quot;]
+extern crate proc_macro;
+use proc_macro::TokenStream;
+
+use syn::{Item as SynItem, ItemFn};
+use quote::quote;
+use proc_macro2::{Ident, Span};
+
+#[proc_macro_attribute]
+pub fn plugin_helper(_attr: TokenStream, tokens: TokenStream) -&gt; TokenStream {
+    let tokens2 = proc_macro2::TokenStream::from(tokens);
+    let parse2 = syn::parse2::&lt;SynItem&gt;(tokens2).expect(&quot;Failed to parse tokens&quot;);
+    match parse2 {
+        SynItem::Fn(func) =&gt; handle_func(func),
+        _ =&gt; panic!(&quot;Only functions are currently supported&quot;)
+    }
+}
+
+fn handle_func(func: ItemFn) -&gt; TokenStream {
+    // Check and make sure our function takes
+    // only one argument and panic if not
+    if func.decl.inputs.len() != 1 {
+        panic!(&quot;fns marked with plugin_helper can only take 1 argument&quot;);
+    }
+    // Copy this function's identifier
+    let ident = func.ident.clone();
+    // Create a new identifier with a underscore in front of 
+    // the original identifier
+    let shadows_ident = Ident::new(&amp;format!(&quot;_{}&quot;, ident), Span::call_site());
+    // Generate some rust with the original and new
+    // shadowed function
+    let ret = quote! {
+        #func
+
+        #[no_mangle]
+        pub fn #shadows_ident(ptr: i32, len: u32) -&gt; i32 {
+            let value = unsafe {
+                ::std::slice::from_raw_parts(ptr as _, len as _)
+            };
+            let arg = convert_data(value);
+            let ret = #ident(arg);
+            let bytes = revert_data(&amp;ret);
+            let len = bytes.len() as u32;
+            unsafe {
+                ::std::ptr::write(1 as _, len);
+            }
+            bytes.as_ptr() as _
+        }
+    };
+    ret.into()
+}
+#}</code></pre></pre>
+<p>Now we need to point our plugin to the workspace root instead of the macro directly which means we can get rid of the bincode dependency.</p>
+<pre><code class="language-toml"># ./crates/example-plugin/Cargo.toml
+[package]
+name = &quot;example-plugin&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer-plugin-example = { path = &quot;../..&quot; }
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>With that updated we can now adjust the use statement to <code>use wasmer_plugin_example::*</code></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+use wasmer_plugin_example::*;
+/// This is the actual code we would 
+/// write if this was a pure rust
+/// interaction
+#[plugin_helper]
+pub fn multiply(pair: (u8, String)) -&gt; (u8, String) {
+    // create a repeated version of the string
+    // based on the u8 provided
+    let s = pair.1.repeat(pair.0 as usize);
+    // Multiply the u8 by the length
+    // of the new string
+    let u = pair.0.wrapping_mul(s.len() as u8);
+    (u, s)
+}
+#}</code></pre></pre>
+<p>Let's just double check that we haven't broken anything.</p>
+<pre><code>cargo build -p example-plugin --target wasm32-unknown-unknown
+cargo run -p example-runner
+multiply 5: (82, &quot;supercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocioussupercalifragilisticexpialidocious&quot;)
+</code></pre>
+<p>Huzzah! It works and that looks a lot cleaner than before, now plugin developers don't need to worry about how we are doing what we do but instead can just focus on their task. In the next part, we are going to cover a real world example of how you might use this scheme to extend an application. We are going to focus on extending <a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a> to allow web assembly plugins for preprocessing.</p>
+<p>In the last three posts of this series we covered all of the things we would need to use <a href="http://wasmer.io"><code>Wasmer</code></a> as the base for a plugin system. In <a href="/blog/wasmer-plugin-pt-1/index.html">part one</a> we went over the basics of passing simple data in and out of a web assembly module, in <a href="/blog/wasmer-plugin-pt-2/index.html">part two</a> we dug deeper into how you might do the same with more complicated data. In the <a href="/blog/wasmer-plugin-pt-3/index.html">last part</a> we eased the experience of plugin developers by encapsulating all of our work into a library that exports a procedural macro. In this post we are going to explore what it would take to extend an existing plugin system to allow for Wasm plugins.</p>
+<a class="header" href="#enter-mdbook" id="enter-mdbook"><h2>Enter MDBook</h2></a>
+<p>Before we get started with any code, we should first go over <a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a> a little bit. If you are not familiar, mdbook is an application that enables its users to create books using markdown files and a toml file for configuration. You are probably familiar with the format because <a href="https://doc.rust-lang.org/book/index.html">TRPL</a> is built using it and while HTML is probably the most popular output it has the ability to render into a few other formats. These other formats are provided through a plugin system which has two sides, preprocessors and renderers. Each side is really aptly named, the preprocessors will get the information first then the renderer will get the information last. Both types of plugins communicate with the main mdbook process via stdin and stdout. The basic workflow is that mdbook will read in the book and it's contents from the file system, generate a struct that represents that book and then serializes it to json and pipes it to a child process. If that child process is a preprocessor, it will deserialize, update, re-serialize and then pipe that back, if it is a render it will deserialize and then render that however it likes. At this point, we are going to focus on the preprocessor because Wasm isn't currently a great candidate for dealing with the file system or network and the preprocessor doesn't need any of that.</p>
+<p>In the <a href="https://rust-lang-nursery.github.io/mdBook/for_developers/preprocessors.html">official guide</a> the mdbook team outlined the basic structure as being an struct that implements the trait <code>Preprocessor</code> which requires two methods <code>name</code>, <code>run</code> and allows an optional method <code>supports</code> which by default returns true. The main entry point being the <code>run</code> method, which take a <code>PreprocessorContext</code> and a <code>Book</code> and returns a <code>Result&lt;Book&gt;</code>. While this is a good way to explain what is needed, in actuality a preprocessor would look a little different. First, instead of a struct that implements a trait, it can just be a command line application that can support running with no arguments as well as with the <code>supports</code> argument. If the supports argument is provided, the application should use the exit status code to indicate if it does (0) or does not (1) support a particular renderer. If no argument was provided we would then deserialize the context and book provided from stdin (as a tuple). Once those two values are acquired, you can manipulate the book however you'd like and then serialize the it and send that back out via stdout. Let's quickly look at what a preprocessor might look like if it just updates any &quot;Wasm&quot; strings to &quot;Wasm&quot; (because Wasm isn't an acronym). For this example, we are going to update the runner. First we want to add a few more dependencies, namely mdBook, docopt, serde and serde_derive.</p>
+<pre><code class="language-toml"># ./crates/example-runner/Cargo.toml
+[package]
+name = &quot;mdbook-example-runner&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer-runtime = &quot;0.3.0&quot;
+bincode = &quot;1&quot;
+mdbook = { git = &quot;https://github.com/rust-lang-nursery/mdBook&quot; }
+docopt = &quot;1&quot;
+serde = &quot;1&quot;
+serde_derive = &quot;1&quot;
+serde_json = &quot;1&quot;
+</code></pre>
+<p>Two things to point out here, first is that we are updating the name of this program to have a prefix of <code>mdbook-</code> this is a requirement of any mdbook preprocessor, the other is that we are using mdbook as a git dependency. As of the writing of this post there is an issue with their handlebars dependency that would make the library fail to compile to Wasm. The next version of mdbook will not include this problem but for now, this example will need to work with the git repository instead of crates.io. We are going to use docopt for command line argument parsing but you could just as easily use clap, structopt or DIY it if you'd prefer.</p>
+<p>As a note, this example is going to remove a lot of the wasmer-runtime stuff for readability (you may want to keep some of it around for later if you're typing along).</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use docopt::Docopt;
+use serde::Deserialize;
+use serde_json::{
+    from_reader, 
+    to_writer,
+};
+use std::{
+    process::exit,
+    io::{
+        stdin,
+        stdout,
+    }
+};
+use mdbook::{
+    book::{
+        Book,
+        BookItem,
+    },
+    preprocess::PreprocessorContext,
+};
+
+static USAGE: &amp;str = &quot;
+Usage:
+    mdbook-wasm-preprocessor
+    mdbook-wasm-preprocessor supports &lt;supports&gt;
+&quot;;
+
+#[derive(Deserialize)]
+struct Opts {
+    pub arg_supports: Option&lt;String&gt;,
+}
+
+fn main() {
+    // Parse and deserialize command line
+    // arguments
+    let opts: Opts = Docopt::new(USAGE)
+                    .and_then(|d| d.deserialize())
+                    .unwrap_or_else(|e| e.exit());
+    // If the arg supports was include
+    // we need to handle that
+    if let Some(_renderer_name) = opts.arg_supports {
+        // This will always resolve
+        // to `true` for mdbook
+        exit(0);
+    }
+    // Parse and deserialize the context and book
+    // from stdin
+    let (_ctx, book): (PreprocessorContext, Book) = 
+        from_reader(stdin())
+        .expect(&quot;Failed to deserialize context and book&quot;);
+    // Update the book's contents
+    let updated = preprocess(book)
+        .expect(&quot;Failed to preprocess book&quot;);
+    // serialize and write the updated book
+    // to stdout
+    to_writer(stdout(), &amp;updated)
+        .expect(&quot;Failed to serialize/write book&quot;);
+}
+
+/// Update the book's contents so that all Wasms are
+/// replaced with Wasm
+fn preprocess(mut book: Book) -&gt; Result&lt;Book, String&gt; {
+    // Iterate over the book's sections assigning
+    // the updated items to the book we were passed
+    book.sections = book.sections.into_iter().map(|s| {
+        // each section could be a chapter
+        // or a seperator
+        match s {
+            // if its a chapter, we want to update that
+            BookItem::Chapter(mut ch) =&gt; {
+                // replace all Wasms with Wasms
+                ch.content = ch.content.replace(&quot;Wasm&quot;, &quot;Wasm&quot;);
+                // Wrap the contents back up into a Chapter
+                BookItem::Chapter(ch)
+            },
+            _ =&gt; s,
+        }
+    }).collect();
+    // Return the updated book
+    Ok(book)
+}
+</code></pre></pre>
+<p>If you have never used docopt, it essentially uses command line usage text as a serialization format. To start we are going to define our usage. With that done we can declare the struct that will represent the deserialized command line arguments. Docopt uses a prefix scheme for flags vs sub-commands vs arguments, we want to have a field <code>arg_supports</code> that will be an optional string. Now we can actually get into the execution, first we pass the usage off to docopt and exit early if it fails to parse. Next we want to check if the caller provided the supports argument, if so we are just going to exit early with 0 which just says yes, we support this format. Once we are through that we can use the serde_json function deserialize_from to both read stdin and also serialize it into a tuple with a context first and the book second. Now that we have those two items we are going to pass them along to the function preprocess.</p>
+<p>For this preprocessor, we are going loop over all of the sections in the book and any chapters we find and update the contents of those to replace any &quot;Wasm&quot;s with &quot;Wasm&quot;s returning the updated book. We are going to use the serde_json function <code>serialize_to</code> to serialize the returned book to json and write that to stdout. As you can see, this is both a powerful system but also one that requires plugin developers to know quite a bit about how everything works. After building a <a href="https://github.com/FreeMasen/mdbook-presentation-preprocessor">preprocessor</a> myself and then hearing about wasmer-runtime it seemed like a perfect opportunity to make this whole thing easier.</p>
+<p>If we wanted to test our first example out we would need mdbook installed and an actual book to run it against. To install mdbook, <a href="https://github.com/FreeMasen/wasmer-plugin">you have a few options</a> but for this example we will use <code>cargo install mdbook</code>. With that installed we can create a book with the following.</p>
+<pre><code>mdbook init ./example-book
+
+Do you want a .gitignore to be created? (y/n)
+n
+What title would you like to give the book? 
+Example Book
+</code></pre>
+<p>As an example, the <a href="https://github.com/FreeMasen/wiredforge-wasmer-plugin-code">repo</a> has one defined with the contents of this series, with all the wasms capitalized. Now, we need to tell mdbook to run our preprocessor, we do that in the <code>book.toml</code> file.</p>
+<pre><code class="language-toml"># ./example-book/book.toml
+[book]
+authors = [&quot;rfm&quot;]
+multilingual = false
+src = &quot;src&quot;
+title = &quot;Example Book&quot;
+
+[preprocessor.example-runner]
+</code></pre>
+<p>We are almost there, the last thing we need to do is install our plugin, we do that with the following command.</p>
+<pre><code>cargo install --path ./crates/example-runner
+</code></pre>
+<p>Cargo will compile that for us and put it in our path. We can now run <code>mdbook build ./example-book</code>, which will generate a bunch of files in the <code>./example-book/book</code> directory, any of the html files should have their Wasms updated to Wasms.</p>
+<p>One of the really nice things about there being an existing plugin system is that we don't need to be maintainers to realize our vision. We could define our own scheme for running Wasm plugins that interfaces with mdbook via the old system. Let's say that we want our plugin developers to provide a functions <code>preprocess(mut book: Book) -&gt; Book</code>. Since this takes a single argument and return a single argument, we can use the same scheme to execute it as we have previously. Let's take the Wasm to Wasm part from above and move that into our example plugin, to do that we need to update the dependencies.</p>
+<pre><code class="language-toml"># ./crates/example-plugin/Cargo.toml
+[package]
+name = &quot;example-plugin&quot;
+version = &quot;0.1.0&quot;
+authors = [&quot;rfm &lt;r@robertmasen.pizza&gt;&quot;]
+edition = &quot;2018&quot;
+
+[dependencies]
+wasmer-plugin-example = { path = &quot;../..&quot; }
+
+[dependencies.mdbook]
+git = &quot;https://github.com/rust-lang-nursery/mdBook&quot;
+default-features = false 
+
+[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>Adding a dependency with a toml table like we're doing for mdbook is a nice way to make it clearer what is happening. Again we are going to point to the git repository, we also need to make sure that the default-features are turned off. The mdbook default features are primarily for the binary application, avoiding them is the other key to allowing this to compile to Wasm. With that out of the way we can update our code.</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+// ./crates/example-plugin/src/lib.rs
+use wasmer_plugin_example::*;
+use mdbook::{
+    book::{
+        Book,
+        BookItem,
+    },
+    preprocess::PreprocessorContext,
+};
+#[plugin_helper]
+pub fn preprocess(mut book: Book) -&gt; Book {
+    // Iterate over the book's sections assigning
+    // the updated items to the book we were passed
+    book.sections = book.sections.into_iter().map(|s| {
+        // each section could be a chapter
+        // or a seperator
+        match s {
+            // if its a chapter, we want to update that
+            BookItem::Chapter(mut ch) =&gt; {
+                // replace all Wasms with Wasms
+                ch.content = ch.content.replace(&quot;Wasm&quot;, &quot;Wasm&quot;);
+                // Wrap the contents back up into a Chapter
+                BookItem::Chapter(ch)
+            },
+            _ =&gt; s,
+        }
+    }).collect();
+    // Return the updated book
+    book
+}
+#}</code></pre></pre>
+<p>Here we have updated the library to export a function called <code>preprocess</code> annotated with the <code>#[plugin_helper]</code> attribute which means we should be able to use it just like we did before. Now we can update our runner, we are going to be passing what we have deserialized from the command line to the Wasm module.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use docopt::Docopt;
+use serde::Deserialize;
+use serde_json::{
+    from_reader, 
+    to_writer,
+};
+use std::{
+    process::exit,
+    io::{
+        stdin,
+        stdout,
+    }
+};
+use mdbook::{
+    book::Book,
+    preprocess::PreprocessorContext,
+};
+use bincode::{
+    serialize,
+    deserialize,
+};
+use wasmer_runtime::{
+    instantiate,
+    imports,
+};
+
+// For now we are going to use this to read in our Wasm bytes
+static Wasm: &amp;[u8] = include_bytes!(&quot;../../../target/wasm32-unknown-unknown/debug/example_plugin.wasm&quot;);
+
+static USAGE: &amp;str = &quot;
+Usage:
+    mdbook-wasm-preprocessor
+    mdbook-wasm-preprocessor supports &lt;supports&gt;
+&quot;;
+
+#[derive(Deserialize)]
+struct Opts {
+    pub arg_supports: Option&lt;String&gt;,
+}
+
+fn main() {
+    // Parse and deserialize command line
+    // arguments
+    let opts: Opts = Docopt::new(USAGE)
+                    .and_then(|d| d.deserialize())
+                    .unwrap_or_else(|e| e.exit());
+    // If the arg supports was include
+    // we need to handle that
+    if let Some(_renderer_name) = opts.arg_supports {
+        // This will always resolve
+        // to `true` for mdbook
+        exit(0);
+    }
+    // Parse and deserialize the context and book
+    // from stdin
+    let (_ctx, book): (PreprocessorContext, Book) = 
+        from_reader(stdin())
+        .expect(&quot;Failed to deserialize context and book&quot;);
+    // Update the book's contents
+    let updated = preprocess(book)
+        .expect(&quot;Failed to preprocess book&quot;);
+    // serialize and write the updated book
+    // to stdout
+    to_writer(stdout(), &amp;updated)
+        .expect(&quot;Failed to serialize/write book&quot;);
+}
+
+/// Update the book's contents so that all Wasms are
+/// replaced with Wasm
+fn preprocess(book: Book) -&gt; Result&lt;Book, String&gt; {
+    let instance = instantiate(&amp;Wasm, &amp;imports!{})
+        .expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    let bytes = serialize(&amp;book)
+        .expect(&quot;Failed to serialize tuple&quot;);
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5]
+                .iter()
+                .zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let wasm_preprocess = instance.func::&lt;(i32, u32), i32&gt;(&quot;_preprocess&quot;)
+        .expect(&quot;Failed to bind _preprocess&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = wasm_preprocess.call(5 as i32, len as u32)
+        .expect(&quot;Failed to execute _preprocess&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view
+            .get(i + 1)
+            .map(|c| c.get())
+            .unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let updated_bytes: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    deserialize(&amp;updated_bytes)
+        .map_err(|e| format!(&quot;Error deserializing after Wasm update\n{}&quot;, e))
+}
+</code></pre></pre>
+<p>A lot of what we see in <code>preprocess</code> should look familiar to our previous runner examples, the only real change being that <code>pair</code> will now just be <code>book</code> and the name of the function we are calling has changed. At this point, to test if this is working we would need to rebuild the plugin and then re-install the runner before we can build our book.</p>
+<pre><code>cargo build -p example-plugin
+cargo install --path ./crates/example-runner --force
+mdbook build example-book
+</code></pre>
+<p>When we run that the output in example-book/book should now have to content we expect. One last thing to cover is that we are still using the <code>include_bytes</code> macro to get our Wasm. If this was a real plugin system we would need a method for getting that in a more dynamic way. Let's assume that we want our users to put any pre-compiled Wasm preprocessors into a new sub-directory of the book's root called preprocessors. For this example we can just move our last example plugin into this new folder.</p>
+<pre><code>mkdir ./example-book/preprocessors
+cp ./target/wasm32-unknown-unknown/debug/example-plugin.Wasm ./example-book/preprocessors
+</code></pre>
+<p>Now we can update our runner to look in that directory instead of compiling the bytes into the binary file.</p>
+<pre><pre class="playpen"><code class="language-rust">// ./crates/example-runner/src/main.rs
+use docopt::Docopt;
+use serde::Deserialize;
+use serde_json::{
+    from_reader, 
+    to_writer,
+};
+use std::{
+    process::exit,
+    io::{
+        stdin,
+        stdout,
+        Read,
+    },
+    fs::File,
+};
+use mdbook::{
+    book::Book,
+    preprocess::PreprocessorContext,
+};
+use bincode::{
+    serialize,
+    deserialize,
+};
+use wasmer_runtime::{
+    instantiate,
+    imports,
+};
+
+static USAGE: &amp;str = &quot;
+Usage:
+    mdbook-wasm-preprocessor
+    mdbook-wasm-preprocessor supports &lt;supports&gt;
+&quot;;
+
+#[derive(Deserialize)]
+struct Opts {
+    pub arg_supports: Option&lt;String&gt;,
+}
+
+fn main() {
+    // Parse and deserialize command line
+    // arguments
+    let opts: Opts = Docopt::new(USAGE)
+                    .and_then(|d| d.deserialize())
+                    .unwrap_or_else(|e| e.exit());
+    // If the arg supports was include
+    // we need to handle that
+    if let Some(renderer_name) = opts.arg_supports {
+        // This will always resolve
+        // to `true` for mdbook
+        exit(0);
+    }
+    // Parse and deserialize the context and book
+    // from stdin
+    let (ctx, book): (PreprocessorContext, Book) = 
+        from_reader(stdin())
+        .expect(&quot;Failed to deserialize context and book&quot;);
+    // Update the book's contents
+    let updated = run_all_preprocessors(ctx, book)
+        .expect(&quot;Failed to preprocess book&quot;);
+    // serialize and write the updated book
+    // to stdout
+    to_writer(stdout(), &amp;updated)
+        .expect(&quot;Failed to serialize/write book&quot;);
+}
+
+fn run_all_preprocessors(ctx: PreprocessorContext, mut book: Book) -&gt; Result&lt;Book, String&gt; {
+    // ctx.root will tell us where our book lives
+    let dir = ctx.root.join(&quot;preprocessors&quot;);
+    // loop over all of the preprocessors files there
+    for entry in dir.read_dir()
+        .map_err(|e| format!(&quot;Error reading preprocessors directory {}&quot;, e))? {
+        // safely unwrap the dir entry
+        let entry = entry
+            .map_err(|e| format!(&quot;Error reading entry {}&quot;, e))?;
+        // pull out the path we are working on
+        let path = entry.path();
+        // Check if the path ends with .wasm
+        if let Some(ext) = path.extension() {
+            if ext == &quot;wasm&quot; {
+                // if it does we want to read all the bytes into
+                // a buffer
+                let mut buf = Vec::new();
+                let mut f = File::open(&amp;path)
+                    .map_err(|e| format!(&quot;Error opening file {:?}, {}&quot;, path, e))?;
+                f.read_to_end(&amp;mut buf)
+                    .map_err(|e| format!(&quot;Error reading file {:?}, {}&quot;, path, e))?;
+                // We can now pass this off to our original preprocess
+                book = preprocess(buf.as_slice(), book)?;
+            }
+        }
+    }
+    Ok(book)
+}
+
+/// Update the book's contents so that all Wasms are
+/// replaced with Wasm
+fn preprocess(bytes: &amp;[u8], book: Book) -&gt; Result&lt;Book, String&gt; {
+    // instantiate the Wasm module with the bytes provided
+    let instance = instantiate(bytes, &amp;imports!{})
+        .expect(&quot;failed to instantiate Wasm module&quot;);
+    // The changes start here
+    // First we get the module's context
+    let context = instance.context();
+    // Then we get memory 0 from that context
+    // web assembly only supports one memory right
+    // now so this will always be 0.
+    let memory = context.memory(0);
+    // Now we can get a view of that memory
+    let view = memory.view::&lt;u8&gt;();
+    // Zero our the first 4 bytes of memory
+    for cell in view[1..5].iter() {
+        cell.set(0);
+    }
+    let bytes = serialize(&amp;book)
+        .expect(&quot;Failed to serialize tuple&quot;);
+    // Our length of bytes
+    let len = bytes.len();
+    // loop over the Wasm memory view's bytes
+    // and also the string bytes
+    for (cell, byte) in view[5..len + 5]
+                .iter()
+                .zip(bytes.iter()) {
+        // set each Wasm memory byte to 
+        // be the value of the string byte
+        cell.set(*byte)
+    }
+    // Bind our helper function
+    let wasm_preprocess = instance.func::&lt;(i32, u32), i32&gt;(&quot;_preprocess&quot;)
+        .expect(&quot;Failed to bind _preprocess&quot;);
+    // Call the helper function an store the start of the returned string
+    let start = wasm_preprocess.call(5 as i32, len as u32)
+        .expect(&quot;Failed to execute _preprocess&quot;) as usize;
+    // Get an updated view of memory
+    let new_view = memory.view::&lt;u8&gt;();
+    // Setup the 4 bytes that will be converted
+    // into our new length
+    let mut new_len_bytes = [0u8;4];
+    for i in 0..4 {
+        // attempt to get i+1 from the memory view (1,2,3,4)
+        // If we can, return the value it contains, otherwise
+        // default back to 0
+        new_len_bytes[i] = new_view
+            .get(i + 1)
+            .map(|c| c.get())
+            .unwrap_or(0);
+    }
+    // Convert the 4 bytes into a u32 and cast to usize
+    let new_len = u32::from_ne_bytes(new_len_bytes) as usize;
+    // Calculate the end as the start + new length
+    let end = start + new_len;
+    // Capture the string as bytes 
+    // from the new view of the Wasm memory
+    let updated_bytes: Vec&lt;u8&gt; = new_view[start..end]
+                                    .iter()
+                                    .map(|c|c.get())
+                                    .collect();
+    // Convert the bytes to a string
+    deserialize(&amp;updated_bytes)
+        .map_err(|e| format!(&quot;Error deserializing after Wasm update\n{}&quot;, e))
+}
+</code></pre></pre>
+<p>The big changes here is that we are passing the context and book off to <code>run_all_preprocessors</code> instead of just <code>preprocess</code>. In this new function we are going to first construct the path that will contain our Wasm preprocessors. The context will have a <code>root</code> field that will tell us where our book lives, we can append &quot;preprocessors&quot; on to that with <code>join</code>. Now that we have our path we want to loop over each of the files in that directory and if then end in .Wasm we want to pass those bytes off to <code>preprocess</code> with the book. The result of that should replace our previous book and we will return the updated book after all of the Wasm files have been run. All in all we seem to have a pretty viable plugin runner. There may be a few places that could use some tweaks to increase resiliency or reduce the memory footprint but at least it should be enough to get started.</p>
+<p>If your interested I have built a less educational version of this plugin system which you can find <a href="https://github.com/FreeMasen/wasmer-plugin">here</a>. My hope is that I can add a few more niceties in the coming months that will focus on the plugin runner side of things (like extracting more data from errors in Wasm or wrapping up the instantiate/serialize/inject/execute/extract/deserialize cycle). If you have any comments, questions, suggestions or gripes feel free to shoot me an email at r [at] robertmasen.com or find me on twitter @freemasen.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>

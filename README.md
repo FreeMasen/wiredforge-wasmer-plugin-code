@@ -2,3 +2,5 @@
 [Part 1](https://wiredforge.com/blog/wasmer-plugin-pt-1/index.html)
 
 [As an MDBook](https://freemasen.github.io/wiredforge-wasmer-plugin-code)
+
+[Licensed and working version](https://github.com/FreeMasen/wasmer-plugin)

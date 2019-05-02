@@ -8,5 +8,10 @@ edition = "2018"
 [dependencies]
 wasmer-plugin-example = { path = "../.." }
 
+[dependencies.mdbook]
+git = "https://github.com/rust-lang-nursery/mdBook"
+rev = "1a4f38eace3f297b9727c2eaeb84a2d8e09929a9"
+default-features = false 
+
 [lib]
 crate-type = ["cdylib"]
